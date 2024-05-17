@@ -230,11 +230,11 @@ const programs = {
                 document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
                 break;
             case 'Coaching4':
-                changeBackgroundImage('audio/RUMEUR.jpg'); 
+                changeBackgroundImage('audio/JEB3.jpg'); 
                 initializeCoaching4UI();
                 break;
             default:
-                changeBackgroundImage('audio/RUMEUR2.jpg'); 
+                changeBackgroundImage('audio/KARL.jpg'); 
                 document.getElementById('returnButton').style.display = 'none'; // Masquer les boutons de retour si aucun des programmes spécifiques n'est sélectionné
                 break;
         }
