@@ -224,17 +224,17 @@ const programs = {
     
         switch (this.value) {
             case 'Coaching3':
-                changeBackgroundImage('audio/KARLFONF.jpg'); 
+                changeBackgroundImage('audio/KARLFONFjpg'); 
                 initializeCoaching3UI();
-                document.getElementById('tapisImage2').style.display = 'block'; 
+                document.getElementById('tapisImage2').style.display = 'none'; // Assurez-vous que l'image est cachée initialement
                 document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
                 break;
             case 'Coaching4':
-                changeBackgroundImage('audio/KARL.jpg'); 
+                changeBackgroundImage('audio/JEB3.jpg'); 
                 initializeCoaching4UI();
                 break;
             default:
-                changeBackgroundImage('audio/KARL.jpg'); 
+                changeBackgroundImage('audio/RUMEUR2.jpg'); 
                 document.getElementById('returnButton').style.display = 'none'; // Masquer les boutons de retour si aucun des programmes spécifiques n'est sélectionné
                 break;
         }
