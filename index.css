@@ -3,7 +3,7 @@
 body, html {
     height: 100%;
     margin: 0;
-    background: url('audio/KARL.jpg') no-repeat center center fixed;
+    background: url('audio/KARLITO.jpg') no-repeat center center fixed;
     background-size: contain;
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
@@ -198,14 +198,21 @@ video, .blink, .video-description, .audio-description {
     50% { background-color: #FFA500; }
 }
 
+.flash-orange-inner {
+    animation: flashOrangeLight 1s linear infinite;
+}
+
 #programSelect,
 #nextButton,
 #nextButton2,
 #timeSelector,
-#timeDurationSelector,
 #startTimerButton,
 #pompesSelectorContainer,
 #pompesSelector {
+    animation: flashOrangeLight 1s linear infinite;
+}
+
+#timeDurationSelector > .flash-orange-inner {
     animation: flashOrangeLight 1s linear infinite;
 }
 
