@@ -222,6 +222,9 @@ function handleProgramChange() {
     debugLog(`Program changed to: ${this.value}`);
     resetUI(true);
 
+    // Retirer la classe jeb3-background par défaut
+    document.body.classList.remove('jeb3-background');
+
     switch (this.value) {
         case 'Coaching3':
             changeBackgroundImage('audio/sebastien.jpg'); 
@@ -495,7 +498,10 @@ function initializeCoaching4UI() {
 
     const nextButton = document.getElementById('nextButton');
     nextButton.style.display = 'block';
-    nextButton.onclick = showPompesSelector;
+    nextButton.onclick = function() {
+        document.body.classList.add('jeb3-background'); // Ajouter la classe pour changer le fond d'écran
+        showPompesSelector();
+    };
 
     const tapisImage = document.getElementById('tapisImage');
     tapisImage.style.display = 'block';
@@ -505,6 +511,32 @@ function initializeCoaching4UI() {
         returnButton.style.display = 'none';
     }
 }
+
+function setupRetourneMenueButton() {
+    const retourneMenue = document.getElementById('retourneMenue');
+    if (retourneMenue) {
+        retourneMenue.addEventListener('click', function() {
+            document.body.classList.remove('jeb3-background'); // Restaurer le fond d'écran à KARL.jpg
+            hideCoaching3Components();
+            resetProgramSelector();
+            stopAudiosAndTimersCoaching3();
+            updateDigitalDisplay();
+            resetTimeSelector();
+            
+            const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
+            if (audioDescriptionCoaching3) {
+                audioDescriptionCoaching3.style.display = 'none';
+            }
+        });
+    } else {
+        console.log("retourneMenue button not found in the DOM.");
+    }
+}
+
+
+
+
+
 
 function displayNoCombinationFound() {
     const pompesInstruction = document.getElementById('pompesInstruction');
@@ -751,25 +783,6 @@ function initiateBlinking() {
     }, 500);
 }
 
-function setupRetourneMenueButton() {
-    const retourneMenue = document.getElementById('retourneMenue');
-    if (retourneMenue) {
-        retourneMenue.addEventListener('click', function() {
-            hideCoaching3Components();
-            resetProgramSelector();
-            stopAudiosAndTimersCoaching3();
-            updateDigitalDisplay();
-            resetTimeSelector();
-            
-            const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
-            if (audioDescriptionCoaching3) {
-                audioDescriptionCoaching3.style.display = 'none';
-            }
-        });
-    } else {
-        console.log("retourneMenue button not found in the DOM.");
-    }
-}
 
 function hideCoaching3Components() {
     const elementsToHide = ['tapisImage2', 'timeSelector', 'startTimerButton', 'stopButton', 'retourneMenue'];
