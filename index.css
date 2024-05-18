@@ -208,7 +208,8 @@ video, .blink, .video-description, .audio-description {
 #timeSelector,
 #startTimerButton,
 #pompesSelectorContainer,
-#pompesSelector {
+
+#pompesSelectorContainer {
     animation: flashOrangeLight 1s linear infinite;
 }
 

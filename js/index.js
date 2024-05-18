@@ -407,7 +407,7 @@ const programs = {
      audioDescription.textContent = description;
      audioDescription.classList.add('text-description'); // Ajout de la classe pour le style
      audioDescription.style.display = isVisible ? 'block' : 'none';
-     document.getElementById('tapisImage').style.display = isVisible ? 'block' : 'none';
+     document.getElementById('tapisImage').style.display = 'none'; 
  }
  
  // Actualiser les boutons de contrôle audio après la lecture
