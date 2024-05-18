@@ -223,7 +223,6 @@ function handleProgramChange() {
     // Masquer la vidéo et le bouton Next pour tous les programmes
     document.getElementById('videoContainer').style.display = 'none';
     document.getElementById('nextButton').style.display = 'none';
-      document.getElementById('nextButton').style.display = 'none';
 
     switch (this.value) {
         case 'Coaching3':
@@ -486,9 +485,9 @@ function resetSelectors(selectorIds) {
 
 function initializeCoaching4UI() {
     const videoContainer = document.getElementById('videoContainer');
-    videoContainer.style.display = 'none'; // Assurez-vous que la vidéo est masquée
+    videoContainer.style.display = 'block';
     const welcomeVideo = document.getElementById('welcomeVideo');
-    welcomeVideo.style.display = 'none'; // Assurez-vous que la vidéo est masquée
+    welcomeVideo.style.display = 'block';
 
     const videoDescription = document.getElementById('videoDescription');
     videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
@@ -498,7 +497,7 @@ function initializeCoaching4UI() {
     programSelect.style.display = 'none';
 
     const nextButton = document.getElementById('nextButton');
-    nextButton.style.display = 'none'; // Assurez-vous que le bouton est masqué
+    nextButton.style.display = 'block';
     nextButton.onclick = showPompesSelector;
 
     const tapisImage = document.getElementById('tapisImage');
