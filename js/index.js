@@ -753,28 +753,36 @@ function handleNextButtonClick2() {
  }
 }
 
-// Configuration du sélecteur de durée pour gérer la visibilité du bouton de démarrage
-const timeSelector = document.getElementById('timeDurationSelector');
-const startButton = document.getElementById('startTimerButton');
-
-timeSelector.addEventListener('change', function() {
- if (this.value && this.value !== "") {
- startButton.style.display = 'block'; // Afficher le bouton quand une durée valide est sélectionnée
- } else {
- startButton.style.display = 'none'; // Cacher le bouton si aucune durée valide n'est sélectionnée
- }
-});
-
 
 
 document.addEventListener('DOMContentLoaded', function() {
- setupEventListeners(); // Configure all event listeners
- setupRetourneMenueButton();
- setupNextButton2(); 
- setupStopButton();
- resetTimeSelector();
- initiateBlinking();
+    setupEventListeners(); // Configure all event listeners
+    setupRetourneMenueButton();
+    setupNextButton2(); 
+    setupStopButton();
+    resetTimeSelector();
+    initiateBlinking();
+
+    // Configuration du sélecteur de durée pour gérer la visibilité du bouton de démarrage
+    const timeSelector = document.getElementById('timeDurationSelector');
+    const startButton = document.getElementById('startTimerButton');
+
+    if (timeSelector && startButton) {
+        timeSelector.addEventListener('change', function() {
+            if (this.value && this.value !== "") {
+                startButton.style.display = 'block'; // Afficher le bouton quand une durée valide est sélectionnée
+            } else {
+                startButton.style.display = 'none'; // Cacher le bouton si aucune durée valide n'est sélectionnée
+            }
+        });
+    } else {
+        console.log('timeDurationSelector or startTimerButton not found in the DOM.');
+    }
 });
+
+
+
+
 
 
 function initiateBlinking() {
