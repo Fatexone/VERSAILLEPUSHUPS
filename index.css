@@ -4,7 +4,7 @@ body, html {
     height: 100%;
     margin: 0;
     background: url('audio/KARL.jpg') no-repeat center center fixed;
-    background-size: contain; /* Modification ici pour afficher l'image en entier */
+    background-size: contain;
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
     display: flex;
@@ -175,28 +175,27 @@ video, .blink, .video-description, .audio-description {
     display: block;
 }
 
-
 .text-description {
-    background-color: rgba(0, 0, 0, 0.7); /* Fond sombre semi-transparent */
-    color: #ffffff; /* Texte blanc */
-    padding: 10px; /* Espacement interne */
-    border-radius: 5px; /* Bords arrondis */
-    text-align: center; /* Centrage du texte */
-    width: 90%; /* Largeur du conteneur */
-    font-size: 1rem; /* Taille de police */
-    margin: 20px auto; /* Espacement vertical et centrage horizontal */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 90%;
+    font-size: 1rem;
+    margin: 20px auto;
 }
 
 @media (max-width: 768px) {
     .text-description {
-        width: 95%; /* Ajustement de la largeur pour les petits écrans */
-        font-size: 0.9rem; /* Taille de police légèrement réduite */
+        width: 95%;
+        font-size: 0.9rem;
     }
 }
 
 @keyframes flashOrangeLight {
     0%, 100% { background-color: transparent; }
-    50% { background-color: #FFA500; } /* Orange clair */
+    50% { background-color: #FFA500; }
 }
 
 #programSelect,
@@ -210,16 +209,14 @@ video, .blink, .video-description, .audio-description {
     animation: flashOrangeLight 1s linear infinite;
 }
 
-/* Changement de couleur pour le titre */
 .homepage-title {
     color: red;
 }
 
-/* Ajout des images supplémentaires */
 .additional-image {
     position: absolute;
-    max-width: 200px; /* Taille maximale de l'image */
-    opacity: 0.5; /* Transparence pour éviter de surcharger visuellement */
+    max-width: 200px;
+    opacity: 0.5;
 }
 
 .image-top-left {

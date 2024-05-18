@@ -185,501 +185,442 @@ const programs = {
     let currentAudioIndex = 0;
     let currentAudio = new Audio();
     
-    document.addEventListener('DOMContentLoaded', () => {
-        setupEventListeners();
-        setupRetourneMenueButton();
-        setupNextButton2();
-        setupStopButton();
-        resetTimeSelector();
-        initiateBlinking();
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupEventListeners();
+    setupRetourneMenueButton();
+    setupNextButton2();
+    setupStopButton();
+    resetTimeSelector();
+    initiateBlinking();
+});
+
+function debugLog(message) {
+    console.log(`DEBUG: ${message}`);
+}
+
+function setupEventListeners() {
+    setupReturnToMenuButton2();
+    setupProgramSelector();
+    setupPompesSelector();
+    setupGoButton();
+    setupStopButton();
+    setupNextButton();
+    setupNextAudioButton();
+    setupReturnToMenuButton();
+    debugLog("Event listeners configured");
+}
+
+function setupProgramSelector() {
+    const programSelect = document.getElementById('programSelect');
+    programSelect.addEventListener('change', handleProgramChange);
+    console.log('Program selector setup complete');
+}
+
+function handleProgramChange() {
+    debugLog(`Program changed to: ${this.value}`);
+    resetUI(true);
+
+    switch (this.value) {
+        case 'Coaching3':
+            changeBackgroundImage('audio/sebastien.jpg'); 
+            initializeCoaching3UI();
+            document.getElementById('programSelect').style.display = 'none';
+            document.getElementById('timeSelector').style.display = 'block';
+            document.getElementById('retourneMenue').style.display = 'block';
+            break;
+        case 'Coaching4':
+            changeBackgroundImage('audio/KARL.jpg'); 
+            initializeCoaching4UI();
+            break;
+        default:
+            changeBackgroundImage('audio/KARL.jpg'); 
+            document.getElementById('returnButton').style.display = 'none';
+            break;
+    }
+}
+
+function changeBackgroundImage(imagePath) {
+    document.body.style.backgroundImage = `url('${imagePath}')`;
+    console.log(`Background image changed to ${imagePath}`);
+}
+
+function setupNextButton() {
+    const nextButton = document.getElementById('nextButton');
+    nextButton.addEventListener('click', function() {
+        handleNextButtonClick();
     });
-    
-    function debugLog(message) {
-        console.log(`DEBUG: ${message}`);
-    }
-    
-    // Fonction pour configurer tous les écouteurs d'événements
-    function setupEventListeners() {
-        setupReturnToMenuButton2();
-        setupProgramSelector();
-        setupPompesSelector();
-        setupGoButton();
-        setupStopButton();
-        setupNextButton();
-        setupNextAudioButton();
-        setupReturnToMenuButton();
-        debugLog("Event listeners configured");
-    }
-    
-    function setupProgramSelector() {
-        const programSelect = document.getElementById('programSelect');
-        programSelect.addEventListener('change', handleProgramChange);
-        console.log('Program selector setup complete');
-    }
-    
-    // Gestion du changement de programme
-    function handleProgramChange() {
-        debugLog(`Program changed to: ${this.value}`);
-        resetUI(true); // Réinitialiser l'interface utilisateur, garder la sélection si nécessaire
-    
-        switch (this.value) {
-            case 'Coaching3':
-                changeBackgroundImage('audio/KARL.jpg'); 
-                initializeCoaching3UI();
-                document.getElementById('tapisImage2').style.display = 'none'; // Assurez-vous que l'image est cachée initialement
-                document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
-                break;
-            case 'Coaching4':
-                changeBackgroundImage('audio/KARL.jpg'); 
-                initializeCoaching4UI();
-                break;
-            default:
-                changeBackgroundImage('audio/KARL.jpg'); 
-                document.getElementById('returnButton').style.display = 'none'; // Masquer les boutons de retour si aucun des programmes spécifiques n'est sélectionné
-                break;
+}
+
+function handleNextButtonClick() {
+    toggleDisplay('welcomeVideo', false);
+    toggleDisplay('videoDescription', false);
+    toggleDisplay('tapisImage', true);
+    toggleDisplay('pompesSelectorContainer', true);
+    toggleDisplay('returnButton', true);
+
+    const pompesSelector = document.getElementById('pompesSelector');
+    pompesSelector.selectedIndex = 0;
+    document.getElementById('pompesInstruction').style.display = 'none';
+    document.getElementById('startButton').style.display = 'none';
+
+    const returnButton = document.getElementById('returnButton');
+    if (returnButton) {
+        returnButton.style.display = 'block';
+        const tapisImage = document.getElementById('tapisImage');
+        if (tapisImage) {
+            tapisImage.parentNode.insertBefore(returnButton, tapisImage.nextSibling);
         }
     }
-    
+}
 
-
-    function changeBackgroundImage(imagePath) {
-        document.body.style.backgroundImage = `url('${imagePath}')`;
-        console.log(`Background image changed to ${imagePath}`);
+function toggleDisplay(elementId, isVisible) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.style.display = isVisible ? 'block' : 'none';
+        console.log(`${elementId} ${isVisible ? 'displayed' : 'hidden'}`);
+    } else {
+        console.log(`${elementId} not found`);
     }
-    
+}
 
+function setupPompesSelector() {
+    const pompesSelector = document.getElementById('pompesSelector');
+    pompesSelector.addEventListener('change', function() {
+        handlePompesSelectorChange(this.value);
+    });
+}
 
-
-
-    function setupNextButton() {
-        const nextButton = document.getElementById('nextButton');
-        nextButton.addEventListener('click', function() {
-            handleNextButtonClick();
-        });
-    }
-    
-    // Traitement du clic sur le bouton suivant
-    function handleNextButtonClick() {
-        toggleDisplay('welcomeVideo', false);
-        toggleDisplay('videoDescription', false);
+async function handlePompesSelectorChange(value) {
+    if (value) {
+        await calculateProgramCombinations(parseInt(value, 10));
         toggleDisplay('tapisImage', true);
-        toggleDisplay('pompesSelectorContainer', true);
-        toggleDisplay('returnButton', true); // Rendre le bouton retour visible
-    
-        // Réinitialiser le sélecteur de pompes
-        const pompesSelector = document.getElementById('pompesSelector');
-        pompesSelector.selectedIndex = 0;
-        document.getElementById('pompesInstruction').style.display = 'none';
-        document.getElementById('startButton').style.display = 'none';
-    
-        // Afficher et positionner le returnButton sous le tapis
-        const returnButton = document.getElementById('returnButton');
-        if (returnButton) {
-            returnButton.style.display = 'block';
-            const tapisImage = document.getElementById('tapisImage');
-            if (tapisImage) {
-                tapisImage.parentNode.insertBefore(returnButton, tapisImage.nextSibling);
-            }
+        toggleDisplay('pompesInstruction', true);
+        toggleDisplay('startButton', true);
+        toggleDisplay('returnButton', true);
+    }
+}
+
+async function calculateProgramCombinations(targetPompes) {
+    const pumpsMapping = {
+        'P1': 3, 'P2': 5, 'P3': 5, 'P4': 7, 'P5': 7, 'P6': 7, 'P7': 9, 'P8': 9, 'P9': 9, 'P10': 9,
+        // Other mappings...
+    };
+    let cumulativePumps = 0;
+    let selectedPrograms = [];
+    for (let key in pumpsMapping) {
+        cumulativePumps += pumpsMapping[key];
+        selectedPrograms.push(key);
+        if (cumulativePumps >= targetPompes) break;
+    }
+
+    if (selectedPrograms.length > 0) {
+        currentCombination = selectedPrograms;
+        currentAudioIndex = 0;
+        document.getElementById('pompesInstruction').textContent = `We have selected the programs ${currentCombination.join(', ')} to perform your ${targetPompes} push-ups.`;
+    } else {
+        displayNoCombinationFound();
+    }
+}
+
+function setupGoButton() {
+    const startButton = document.getElementById('startButton');
+    startButton.addEventListener('click', async function() {
+        const pompes = parseInt(document.getElementById('pompesSelector').value, 10);
+        await calculateProgramCombinations(pompes);
+        playInitialAudio();
+        this.style.display = 'none';
+    });
+}
+
+async function playInitialAudio() {
+    if (currentAudioIndex < currentCombination.length && !isAudioPlaying) {
+        isAudioPlaying = true;
+
+        const wayAudioPath = `./audio/way${currentAudioIndex + 1}.mp3`;
+        const programAudioPath = `./audio/${currentCombination[currentAudioIndex]}.mp3`;
+
+        await playAudio(wayAudioPath);
+        updateUIForAudioPlay(descriptions.Coaching4[`way${currentAudioIndex + 1}`], true);
+
+        if (currentAudioIndex === currentCombination.length - 1) {
+            await handleLastWaysAudio();
         }
+
+        await playAudio(programAudioPath);
+        updateUIForAudioPlay(descriptions.Coaching4[currentCombination[currentAudioIndex]], true);
+
+        currentAudioIndex++;
+        isAudioPlaying = false;
+
+        updateAudioControlButtons();
+    } else {
+        console.log("Audio is currently playing or no more audio to play.");
     }
-    
-    function toggleDisplay(elementId, isVisible) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.style.display = isVisible ? 'block' : 'none';
-            console.log(`${elementId} ${isVisible ? 'displayed' : 'hidden'}`);
-        } else {
-            console.log(`${elementId} not found`);
-        }
-    }
-    
-    function setupPompesSelector() {
-        const pompesSelector = document.getElementById('pompesSelector');
-        pompesSelector.addEventListener('change', function() {
-            handlePompesSelectorChange(this.value);
-        });
-    }
-    
-    async function handlePompesSelectorChange(value) {
-        if (value) {
-            await calculateProgramCombinations(parseInt(value, 10));
-            toggleDisplay('tapisImage', true);
-            toggleDisplay('pompesInstruction', true);
-            toggleDisplay('startButton', true);
-            toggleDisplay('returnButton', true); // Assurez-vous que le bouton de retour est toujours visible
-        }
-    }
-    
-    async function calculateProgramCombinations(targetPompes) {
-        const pumpsMapping = {
-            'P1': 3, 'P2': 5, 'P3': 5, 'P4': 7, 'P5': 7, 'P6': 7, 'P7': 9, 'P8': 9, 'P9': 9, 'P10': 9,
-            'P11': 11, 'P12': 11, 'P13': 11, 'P14': 11, 'P15': 11, 'P16': 13, 'P17': 13, 'P18': 13, 'P19': 13,
-            'P20': 13, 'P21': 13, 'P22': 15, 'P23': 15, 'P24': 15, 'P25': 15, 'P26': 15, 'P27': 17, 'P28': 17,
-            'P29': 17, 'P30': 17, 'P31': 19, 'P32': 19, 'P33': 19, 'P34': 21, 'P35': 21, 'P36': 23
-        };
-        let cumulativePumps = 0;
-        let selectedPrograms = [];
-        for (let key in pumpsMapping) {
-            cumulativePumps += pumpsMapping[key];
-            selectedPrograms.push(key);
-            if (cumulativePumps >= targetPompes) break;
-        }
-    
-        if (selectedPrograms.length > 0) {
-            currentCombination = selectedPrograms;
-            currentAudioIndex = 0;
-            document.getElementById('pompesInstruction').textContent = `We have selected the programs ${currentCombination.join(', ')} to perform your ${targetPompes} push-ups.`;
-        } else {
-            displayNoCombinationFound();
-        }
-    }
-    
-    function setupGoButton() {
-        const startButton = document.getElementById('startButton');
-        startButton.addEventListener('click', async function() {
-            const pompes = parseInt(document.getElementById('pompesSelector').value, 10);
-            await calculateProgramCombinations(pompes);
-            playInitialAudio(); // Modifier pour lancer la lecture initiale
-            this.style.display = 'none'; // Optionnel: Masquer le bouton après le clic
-        });
-    }
-    
-    async function playInitialAudio() {
-        if (currentAudioIndex < currentCombination.length && !isAudioPlaying) {
-            isAudioPlaying = true;
-    
+}
+
+async function handleLastWaysAudio() {
+    const lastWaysAudioPath = './audio/Lastways.mp3';
+    await playAudio(lastWaysAudioPath);
+    updateUIForAudioPlay("Closing session with Lastways.", true);
+    updateAudioControlButtons();
+}
+
+async function playCoaching4Audio() {
+    if (currentAudioIndex < currentCombination.length && !isAudioPlaying) {
+        isAudioPlaying = true;
+        try {
             const wayAudioPath = `./audio/way${currentAudioIndex + 1}.mp3`;
-            const programAudioPath = `./audio/${currentCombination[currentAudioIndex]}.mp3`;
-    
-            // Jouer l'audio de "way"
+            const programPath = `./audio/${currentCombination[currentAudioIndex]}.mp3`;
+
             await playAudio(wayAudioPath);
             updateUIForAudioPlay(descriptions.Coaching4[`way${currentAudioIndex + 1}`], true);
-    
-            // Jouer "Lastways" si c'est le dernier audio
+
             if (currentAudioIndex === currentCombination.length - 1) {
                 await handleLastWaysAudio();
             }
-    
-            // Jouer l'audio de "P" après "way"
-            await playAudio(programAudioPath);
+
+            await playAudio(programPath);
             updateUIForAudioPlay(descriptions.Coaching4[currentCombination[currentAudioIndex]], true);
-    
-            // Préparer pour le prochain audio
+
             currentAudioIndex++;
-            isAudioPlaying = false;  // Réinitialiser l'état après la lecture
-    
+            isAudioPlaying = false;
+
             updateAudioControlButtons();
-        } else {
-            console.log("Audio is currently playing or no more audio to play.");
+        } catch (error) {
+            console.error("Error playing sequence: ", error);
+            updateUIForAudioPlay("Erreur de lecture. Veuillez vérifier les fichiers audio.", false);
+            isAudioPlaying = false;
         }
+    } else {
+        console.log("Audio is currently playing or no more audio to play.");
     }
+}
+
+function updateUIForAudioPlay(description, isVisible) {
+    const audioDescription = document.getElementById('audioDescription');
+    audioDescription.textContent = description;
+    audioDescription.classList.add('text-description');
+    audioDescription.style.display = isVisible ? 'block' : 'none';
+    document.getElementById('tapisImage').style.display = isVisible ? 'block' : 'none';
+}
+
+function updateAudioControlButtons() {
+    const nextAudioButton = document.getElementById('nextAudioButton');
+    const returnButton = document.getElementById('returnButton');
+
+    nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
+    returnButton.style.display = 'block';
+    nextAudioButton.onclick = playCoaching4Audio;
+}
+
+async function playAudio(audioPath) {
+    console.log('playAudio called with path:', audioPath);
+    currentAudio.src = audioPath;
     
-    async function handleLastWaysAudio() {
-        const lastWaysAudioPath = './audio/Lastways.mp3';
-        await playAudio(lastWaysAudioPath);
-        updateUIForAudioPlay("Closing session with Lastways.", true);
-        updateAudioControlButtons();  // Mise à jour finale des contrôles
-    }
-    
-    async function playCoaching4Audio() {
-        if (currentAudioIndex < currentCombination.length && !isAudioPlaying) {
-            isAudioPlaying = true;
-            try {
-                const wayAudioPath = `./audio/way${currentAudioIndex + 1}.mp3`;
-                const programPath = `./audio/${currentCombination[currentAudioIndex]}.mp3`;
-    
-                // Jouer l'audio 'way'
-                await playAudio(wayAudioPath);
-                updateUIForAudioPlay(descriptions.Coaching4[`way${currentAudioIndex + 1}`], true);
-    
-                // Jouer "Lastways" si c'est le dernier audio
-                if (currentAudioIndex === currentCombination.length - 1) {
-                    await handleLastWaysAudio();
-                }
-    
-                // Jouer l'audio de programme après 'way'
-                await playAudio(programPath);
-                updateUIForAudioPlay(descriptions.Coaching4[currentCombination[currentAudioIndex]], true);
-    
-                currentAudioIndex++;
-                isAudioPlaying = false;  // Réinitialiser l'état après la lecture
-    
-                updateAudioControlButtons();
-            } catch (error) {
-                console.error("Error playing sequence: ", error);
-                updateUIForAudioPlay("Erreur de lecture. Veuillez vérifier les fichiers audio.", false);
-                isAudioPlaying = false;  // Réinitialiser l'état après une erreur
-            }
-        } else {
-            console.log("Audio is currently playing or no more audio to play.");
-        }
-    }
-    
-    // Mettre à jour l'UI après la lecture
-    function updateUIForAudioPlay(description, isVisible) {
-        const audioDescription = document.getElementById('audioDescription');
-        audioDescription.textContent = description;
-        audioDescription.classList.add('text-description'); // Ajout de la classe pour le style
-        audioDescription.style.display = isVisible ? 'block' : 'none';
-        document.getElementById('tapisImage').style.display = isVisible ? 'block' : 'none';
-    }
-    
-    // Actualiser les boutons de contrôle audio après la lecture
-    function updateAudioControlButtons() {
-        const nextAudioButton = document.getElementById('nextAudioButton');
-        const returnButton = document.getElementById('returnButton');
-    
-        nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
-        returnButton.style.display = 'block'; // Assurez-vous que le bouton de retour est toujours visible
-        nextAudioButton.onclick = playCoaching4Audio; // S'assurer que le bouton suivant est prêt pour la prochaine piste
-    }
-    
-    async function playAudio(audioPath) {
-        console.log('playAudio called with path:', audioPath);
-        currentAudio.src = audioPath;
-        
-        return new Promise((resolve, reject) => {
-            currentAudio.onloadedmetadata = () => {
-                currentAudio.play().then(() => {
-                    console.log('Audio is playing:', audioPath);
-                }).catch((e) => {
-                    console.error("Error playing audio:", e);
-                    reject(e);
-                });
-            };
-    
-            currentAudio.onended = () => {
-                console.log('Audio ended:', audioPath);
-                resolve();
-            };
-    
-            currentAudio.onerror = () => {
-                console.error('Error loading audio:', currentAudio.error);
-                reject(currentAudio.error);
-            };
-        });
-    }
-    
-    function setupNextAudioButton() {
-        const nextAudioButton = document.getElementById('nextAudioButton');
-        nextAudioButton.addEventListener('click', playCoaching4Audio);
-        // Initialiser le style d'affichage basé sur l'état de la séquence audio
-        nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
-    }
-    
-    // menue pushups
-    function setupReturnToMenuButton() {
-        const returnButton = document.getElementById('returnButton');
-        if (returnButton) {
-            returnButton.addEventListener('click', function() {
-                stopAudiosAndTimersCoaching4(); // Interrompre l'audio immédiatement
-                hideUIComponents(); // S'assurer que toutes les descriptions sont masquées
-                const programSelect = document.getElementById('programSelect');
-                if (programSelect) {
-                    programSelect.selectedIndex = 0; // Réinitialiser le sélecteur de programme à l'option par défaut
-                    programSelect.style.display = 'block'; // Afficher le sélecteur de programme
-                }
-                console.log("UI reset, audio stopped, and all descriptions hidden.");
+    return new Promise((resolve, reject) => {
+        currentAudio.onloadedmetadata = () => {
+            currentAudio.play().then(() => {
+                console.log('Audio is playing:', audioPath);
+            }).catch((e) => {
+                console.error("Error playing audio:", e);
+                reject(e);
             });
-        } else {
-            console.log("Return to menu button not found.");
-        }
-    }
-    
-    // Masquer les composants de l'UI
-    function hideUIComponents() {
-        const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'tapisImage', 'returnButton', 'audioDescription', 'videoDescription'];
-        elementsToHide.forEach(id => toggleDisplay(id, false));
-        toggleDisplay('programSelect', true); // Le sélecteur de programme doit être réaffiché
-    }
-    
-    function resetSelectors(selectorIds) {
-        selectorIds.forEach(selectorId => {
-            const selector = document.getElementById(selectorId);
-            if (selector) {
-                selector.selectedIndex = 0;
-            }
-        });
-    }
-    
-    function initializeCoaching4UI() {
-        const videoContainer = document.getElementById('videoContainer');
-        videoContainer.style.display = 'block';
-        const welcomeVideo = document.getElementById('welcomeVideo');
-        welcomeVideo.style.display = 'block';
-    
-        const videoDescription = document.getElementById('videoDescription');
-        videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
-        videoDescription.style.display = 'block';
-    
-        // Masquer le sélecteur de programme après avoir sélectionné un programme
-        const programSelect = document.getElementById('programSelect');
-        programSelect.style.display = 'none';
-    
-        const nextButton = document.getElementById('nextButton');
-        nextButton.style.display = 'block';
-        nextButton.onclick = showPompesSelector;
-    
-        // Afficher l'image du tapis de mains
-        const tapisImage = document.getElementById('tapisImage');
-        tapisImage.style.display = 'block';
-    
-        // Masquer le returnButton par défaut
-        const returnButton = document.getElementById('returnButton');
-        if (returnButton) {
-            returnButton.style.display = 'none';
-        }
-    }
-    
-    function displayNoCombinationFound() {
-        const pompesInstruction = document.getElementById('pompesInstruction');
-        pompesInstruction.textContent = "No combination found for the selected number of push-ups.";
-        pompesInstruction.style.display = 'block';
-    }
-    
-    function ensureNextButtonExists(container) {
-        let nextButton = document.getElementById('nextButton');
-        if (!nextButton && container) {
-            nextButton = document.createElement('button');
-            nextButton.id = 'nextButton';
-            nextButton.textContent = 'Next';
-            container.appendChild(nextButton);
-        }
-        return nextButton;
-    }
-    
-    function createButton(id, text, container) {
-        const button = document.createElement('button');
-        button.id = id;
-        button.textContent = text;
-        container.appendChild(button);
-        return button;
-    }
-    
-    function updateButtonEventListener(button, eventHandler) {
-        button.removeEventListener('click', eventHandler);
-        button.addEventListener('click', eventHandler);
-    }
-    
-    function showPompesSelector() {
-        const videoContainer = document.getElementById('videoContainer');
-        videoContainer.style.display = 'none';
-    
-        const videoDescription = document.getElementById('videoDescription');
-        videoDescription.style.display = 'none';
-    
-        const selectorContainer = document.getElementById('pompesSelectorContainer');
-        selectorContainer.style.display = 'block';
-    
-        const startButton = document.getElementById('startButton');
-        startButton.style.display = 'none';
-    
-        const pompesSelector = document.getElementById('pompesSelector');
-        pompesSelector.onchange = () => {};
-    
-        const nextAudioButton = document.getElementById('nextAudioButton');
-        if (nextAudioButton) {
-            nextAudioButton.style.display = 'none';
-        }
-    }
-    
-    function displayLoadingIndicator(show) {
-        const indicator = document.getElementById('loadingIndicator');
-        if (indicator) {
-            indicator.style.display = show ? 'block' : 'none';
-        }
-    }
-    
-    function resetUI(keepSelection = false) {
-        const elementsToHide = [
-            'audioDescription', 'videoContainer', 'pompesSelectorContainer',
-            'nextButton', 'stopButton', 'nextAudioButton', 'returnButton', 'startButton',
-            'videoContainer2', 'welcomeVideo2', 'videoDescription2', 'nextButton2',
-            'tapisImage', 'tapisImage2', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
-        ];
-        elementsToHide.forEach(id => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.style.display = 'none';
-            }
-        });
-    
-        if (!keepSelection) {
+        };
+
+        currentAudio.onended = () => {
+            console.log('Audio ended:', audioPath);
+            resolve();
+        };
+
+        currentAudio.onerror = () => {
+            console.error('Error loading audio:', currentAudio.error);
+            reject(currentAudio.error);
+        };
+    });
+}
+
+function setupNextAudioButton() {
+    const nextAudioButton = document.getElementById('nextAudioButton');
+    nextAudioButton.addEventListener('click', playCoaching4Audio);
+    nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
+}
+
+function setupReturnToMenuButton() {
+    const returnButton = document.getElementById('returnButton');
+    if (returnButton) {
+        returnButton.addEventListener('click', function() {
+            stopAudiosAndTimersCoaching4();
+            hideUIComponents();
             const programSelect = document.getElementById('programSelect');
             if (programSelect) {
                 programSelect.selectedIndex = 0;
                 programSelect.style.display = 'block';
             }
-        }
-    
-        currentAudioIndex = 0;
-        isAudioPlaying = false;
+            console.log("UI reset, audio stopped, and all descriptions hidden.");
+        });
+    } else {
+        console.log("Return to menu button not found.");
     }
-    
-    function stopAudiosAndTimersCoaching4() {
-        console.log('Stopping audios and timers for Coaching4...');
-    
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            console.log('General audio stopped and reset.');
+}
+
+function hideUIComponents() {
+    const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'tapisImage', 'returnButton', 'audioDescription', 'videoDescription'];
+    elementsToHide.forEach(id => toggleDisplay(id, false));
+    toggleDisplay('programSelect', true);
+}
+
+function resetSelectors(selectorIds) {
+    selectorIds.forEach(selectorId => {
+        const selector = document.getElementById(selectorId);
+        if (selector) {
+            selector.selectedIndex = 0;
         }
-    
-        isAudioPlaying = false;
-        console.log('Scheduled audio events cleared for Coaching4.');
-        console.log('Audios and timers stopped and reset for Coaching4.');
+    });
+}
+
+function initializeCoaching4UI() {
+    const videoContainer = document.getElementById('videoContainer');
+    videoContainer.style.display = 'block';
+    const welcomeVideo = document.getElementById('welcomeVideo');
+    welcomeVideo.style.display = 'block';
+
+    const videoDescription = document.getElementById('videoDescription');
+    videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
+    videoDescription.style.display = 'block';
+
+    const programSelect = document.getElementById('programSelect');
+    programSelect.style.display = 'none';
+
+    const nextButton = document.getElementById('nextButton');
+    nextButton.style.display = 'block';
+    nextButton.onclick = showPompesSelector;
+
+    const tapisImage = document.getElementById('tapisImage');
+    tapisImage.style.display = 'block';
+
+    const returnButton = document.getElementById('returnButton');
+    if (returnButton) {
+        returnButton.style.display = 'none';
     }
-    
+}
 
+function displayNoCombinationFound() {
+    const pompesInstruction = document.getElementById('pompesInstruction');
+    pompesInstruction.textContent = "No combination found for the selected number of push-ups.";
+    pompesInstruction.style.display = 'block';
+}
 
+function ensureNextButtonExists(container) {
+    let nextButton = document.getElementById('nextButton');
+    if (!nextButton && container) {
+        nextButton = document.createElement('button');
+        nextButton.id = 'nextButton';
+        nextButton.textContent = 'Next';
+        container.appendChild(nextButton);
+    }
+    return nextButton;
+}
 
+function createButton(id, text, container) {
+    const button = document.createElement('button');
+    button.id = id;
+    button.textContent = text;
+    container.appendChild(button);
+    return button;
+}
 
+function updateButtonEventListener(button, eventHandler) {
+    button.removeEventListener('click', eventHandler);
+    button.addEventListener('click', eventHandler);
+}
 
+function showPompesSelector() {
+    const videoContainer = document.getElementById('videoContainer');
+    videoContainer.style.display = 'none';
 
+    const videoDescription = document.getElementById('videoDescription');
+    videoDescription.style.display = 'none';
 
+    const selectorContainer = document.getElementById('pompesSelectorContainer');
+    selectorContainer.style.display = 'block';
 
+    const startButton = document.getElementById('startButton');
+    startButton.style.display = 'none';
 
+    const pompesSelector = document.getElementById('pompesSelector');
+    pompesSelector.onchange = () => {};
 
+    const nextAudioButton = document.getElementById('nextAudioButton');
+    if (nextAudioButton) {
+        nextAudioButton.style.display = 'none';
+    }
+}
 
+function displayLoadingIndicator(show) {
+    const indicator = document.getElementById('loadingIndicator');
+    if (indicator) {
+        indicator.style.display = show ? 'block' : 'none';
+    }
+}
 
+function resetUI(keepSelection = false) {
+    const elementsToHide = [
+        'audioDescription', 'videoContainer', 'pompesSelectorContainer',
+        'nextButton', 'stopButton', 'nextAudioButton', 'returnButton', 'startButton',
+        'videoContainer2', 'welcomeVideo2', 'videoDescription2', 'nextButton2',
+        'tapisImage', 'tapisImage2', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
+    ];
+    elementsToHide.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'none';
+        }
+    });
 
+    if (!keepSelection) {
+        const programSelect = document.getElementById('programSelect');
+        if (programSelect) {
+            programSelect.selectedIndex = 0;
+            programSelect.style.display = 'block';
+        }
+    }
 
+    currentAudioIndex = 0;
+    isAudioPlaying = false;
+}
 
+function stopAudiosAndTimersCoaching4() {
+    console.log('Stopping audios and timers for Coaching4...');
 
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        console.log('General audio stopped and reset.');
+    }
 
+    isAudioPlaying = false;
+    console.log('Scheduled audio events cleared for Coaching4.');
+    console.log('Audios and timers stopped and reset for Coaching4.');
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Global variables for the timer and audio playback
 let timerDuration;
 let intervalCoaching3;
 let currentAudioCoaching3 = new Audio();
 let audioKeys = ["P1.1", "P3.1", "P4.1", "P5.1", "P6.1", "P7.1", "P8.1", "P9.1", "P10.1", "P11.1", "P12.1", "P13.1", "P14.1", "P15.1", "P16.1", "P17.1", "P18.1", "P19.1", "P20.1","P21.1", "P22.1", "P23.1", "P24.1", "P25.1", "P26.1", "P27.1", "P28.1", "P29.1", "P30.1","P31.1", "P32.1", "P33.1", "P34.1", "P35.1", "P36.1"];
-let audioIndex = 0; // Start at the first audio index
+let audioIndex = 0;
 let isPaused = false;
 let remainingTime = 0;
 let upcomingAudioTimeout;
 
-// Function to shuffle audio keys array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        [array[i], array[j]] = [array[j], array[i]];
     }
     console.log("Audio keys shuffled.");
 }
 
-// Prepare the audio playlist by shuffling once
 shuffleArray(audioKeys);
 
 function resetTimeSelector() {
@@ -713,7 +654,7 @@ function initializeCoaching3UI() {
     setupEventListeners();
     resetUI();
     configurerElementsVideo();
-    document.getElementById('nextButton2').style.display = 'block'; // Afficher le bouton nextButton2 après l'initialisation
+    document.getElementById('nextButton2').style.display = 'block';
     console.log("Interface Coaching3 initialisée et prête.");
 }
 
@@ -722,7 +663,7 @@ function resetTimer() {
         clearInterval(intervalCoaching3);
         intervalCoaching3 = null;
     }
-    timerDuration = 0; // Réinitialisation de la durée du timer
+    timerDuration = 0;
     const display = document.getElementById('digitalDisplay');
     if (display) {
         display.textContent = "00:00";
@@ -739,59 +680,54 @@ function setupNextButton2() {
         console.log("Le bouton 'nextButton2' n'a pas été trouvé dans le DOM.");
     }
 }
+
 function handleNextButtonClick2() {
-    // Masquer la vidéo, la description, et le bouton 'Next'
     document.getElementById('welcomeVideo2').style.display = 'none';
     document.getElementById('videoDescription2').style.display = 'none';
     document.getElementById('nextButton2').style.display = 'none';
-   
-    // Afficher l'image du tapis
+
     var tapisImage2 = document.getElementById('tapisImage2');
     if (tapisImage2) {
         tapisImage2.style.display = 'block';
-        tapisImage2.style.margin = '0 auto'; // Centrer l'image horizontalement
+        tapisImage2.style.margin = '0 auto';
     } else {
         console.log("tapisImage2 not found in the DOM.");
     }
 
-    // Afficher le conteneur 'timeSelector' qui contient 'timeDurationSelector'
     var timeSelector = document.getElementById('timeSelector');
     if (timeSelector) {
-        timeSelector.style.display = 'block'; // Rendre le conteneur du sélecteur de durée visible
+        timeSelector.style.display = 'block';
     } else {
         console.log("timeSelector not found in the DOM.");
     }
 
-    // Afficher le bouton retourneMenue sous l'image tapisImage2
     var retourneMenue = document.getElementById('retourneMenue');
     if (retourneMenue) {
-        retourneMenue.style.display = 'block'; // Afficher le bouton retourneMenue
-        retourneMenue.style.marginTop = '20px'; // Ajouter un espace au-dessus pour le positionner sous l'image
-        retourneMenue.style.margin = '0 auto'; // Centrer le bouton horizontalement
+        retourneMenue.style.display = 'block';
+        retourneMenue.style.marginTop = '20px';
+        retourneMenue.style.margin = '0 auto';
     } else {
         console.log("retourneMenue not found in the DOM.");
     }
 }
 
-// Configuration du sélecteur de durée pour gérer la visibilité du bouton de démarrage
 const timeSelector = document.getElementById('timeDurationSelector');
 const startButton = document.getElementById('startTimerButton');
 
 timeSelector.addEventListener('change', function() {
     if (this.value && this.value !== "") {
-        startButton.style.display = 'block'; // Afficher le bouton quand une durée valide est sélectionnée
+        startButton.style.display = 'block';
     } else {
-        startButton.style.display = 'none'; // Cacher le bouton si aucune durée valide n'est sélectionnée
+        startButton.style.display = 'none';
     }
 });
 
-// Réinitialiser le sélecteur de temps à la valeur par défaut au chargement de la page
 if (timeSelector) {
     timeSelector.selectedIndex = 0;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    setupEventListeners(); // Configure all event listeners
+    setupEventListeners();
     setupRetourneMenueButton();
     setupNextButton2(); 
     setupStopButton();
@@ -799,32 +735,31 @@ document.addEventListener('DOMContentLoaded', function() {
     initiateBlinking();
 });
 
-
 function initiateBlinking() {
     var selector = document.getElementById('timeDurationSelector');
-    var isDefault = true; // Assumer qu'on est sur l'option par défaut au début
-   
+    var isDefault = true;
+
     var blinkingInterval = setInterval(() => {
         if (selector.value === "") {
             selector.style.backgroundColor = isDefault ? 'yellow' : 'white';
-            isDefault = !isDefault; // Bascule la couleur
+            isDefault = !isDefault;
         } else {
             clearInterval(blinkingInterval);
-            selector.style.backgroundColor = 'white'; // Restaurer la couleur de fond normale
+            selector.style.backgroundColor = 'white';
         }
     }, 500);
 }
+
 function setupRetourneMenueButton() {
     const retourneMenue = document.getElementById('retourneMenue');
     if (retourneMenue) {
         retourneMenue.addEventListener('click', function() {
-            hideCoaching3Components(); // Centralise la logique de masquage des composants
-            resetProgramSelector(); // Réinitialiser et afficher le sélecteur de programme
-            stopAudiosAndTimersCoaching3(); // Arrêter et réinitialiser tous les audios et timers
-            updateDigitalDisplay(); // Gérer l'affichage numérique
-            resetTimeSelector(); 
+            hideCoaching3Components();
+            resetProgramSelector();
+            stopAudiosAndTimersCoaching3();
+            updateDigitalDisplay();
+            resetTimeSelector();
             
-            // Cacher la description audio
             const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
             if (audioDescriptionCoaching3) {
                 audioDescriptionCoaching3.style.display = 'none';
@@ -835,7 +770,6 @@ function setupRetourneMenueButton() {
     }
 }
 
-// Fonction spécifique pour masquer les composants UI dans Coaching3
 function hideCoaching3Components() {
     const elementsToHide = ['tapisImage2', 'timeSelector', 'startTimerButton', 'stopButton', 'retourneMenue'];
     elementsToHide.forEach(id => {
@@ -873,19 +807,18 @@ function handleStartTimer() {
         const duration = parseInt(timeDurationSelector.value, 10);
         console.log(`Timer started for duration: ${duration} minutes.`);
 
-        startVisualTimer(duration); // Démarrer le compteur numérique
-        playBellSoundThenCoachingAudios(); // Jouer le son de la cloche et ensuite les audios
+        startVisualTimer(duration);
+        playBellSoundThenCoachingAudios();
 
         const startTimerButton = document.getElementById('startTimerButton');
         const stopButton = document.getElementById('stopButton');
         const timeSelector = document.getElementById('timeSelector');
 
-        startTimerButton.style.display = 'none'; // Masquer le bouton startTimerButton
-        stopButton.style.display = 'block'; // Afficher le bouton Stop
-        stopButton.textContent = 'Pause'; // Initialiser le texte du bouton stopButton à 'Pause'
-        timeSelector.style.display = 'none'; // Masquer le sélecteur de temps
+        startTimerButton.style.display = 'none';
+        stopButton.style.display = 'block';
+        stopButton.textContent = 'Pause';
+        timeSelector.style.display = 'none';
 
-        // Afficher la première description audio
         const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
         if (audioDescriptionCoaching3) {
             const selectedAudioKey = audioKeys[audioIndex];
@@ -897,19 +830,18 @@ function handleStartTimer() {
     }
 }
 
-
 function playBellSoundThenCoachingAudios() {
     const bellSound = new Audio('audio/cloche.mp3');
     bellSound.play();
     bellSound.onended = function() {
         console.log("Bell sound ended, starting first coaching audio.");
-        // Jouer immédiatement le premier audio coaching après la cloche
         playAudioCoaching3(); 
     };
 }
+
 function playAudioCoaching3() {
     if (isPaused) {
-        return; // Ne rien faire si le système est en pause.
+        return;
     }
     if (audioIndex >= audioKeys.length) {
         audioIndex = 0;
@@ -920,7 +852,6 @@ function playAudioCoaching3() {
     currentAudioCoaching3.play();
     console.log(`Playing audio: ${selectedAudioKey}`);
 
-    // Afficher la description audio
     const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
     if (audioDescriptionCoaching3) {
         audioDescriptionCoaching3.textContent = descriptions.Coaching3[selectedAudioKey];
@@ -934,7 +865,6 @@ function playAudioCoaching3() {
         }
     };
 }
-
 
 function handleReturnButton() {
     const programSelect = document.getElementById('programSelect');
@@ -958,10 +888,9 @@ function handleReturnButton() {
         console.log("TapisImage2 not found on return");
     }
 
-    resetTimeSelector(); // Réinitialiser le sélecteur de temps ici aussi
+    resetTimeSelector();
 }
 
-// Ajout de cette fonction pour mieux structurer le code
 function configurerElementsVideo() {
     const videoContainer = document.getElementById('videoContainer2');
     const welcomeVideo = document.getElementById('welcomeVideo2');
@@ -983,10 +912,9 @@ function setupReturnToMenuButton2() {
     const retourneMenue = document.getElementById('retourneMenue');
     if (retourneMenue) {
         retourneMenue.addEventListener('click', () => {
-            // Using the new consolidated function to handle audio and timer resets
             stopAudiosAndTimersCoaching3();
             hideUIComponents();
-            resetUI(true); // Assuming resetUI properly resets the UI states as required
+            resetUI(true);
             console.log("Returned to the main screen and user interface reset.");
         });
     } else {
@@ -994,7 +922,6 @@ function setupReturnToMenuButton2() {
     }
 }
 
-// Ensure that the entire DOM is loaded before setting up the specific Coaching3 interface.
 document.addEventListener('DOMContentLoaded', setupCoaching3UI);
 
 function setupStopButton() {
@@ -1006,24 +933,24 @@ function setupStopButton() {
         document.body.appendChild(stopButton);
     }
     stopButton.addEventListener('click', handlePauseResumeClick);
-    stopButton.style.display = 'none';  // Masquer initialement
+    stopButton.style.display = 'none';
     console.log("Configuration du bouton Stop terminée.");
 }
 
 function handlePauseResumeClick() {
     const stopButton = document.getElementById('stopButton');
-    const retourneMenue = document.getElementById('retourneMenue'); // Récupérer l'élément retourneMenue
+    const retourneMenue = document.getElementById('retourneMenue');
     if (!isPaused) {
-        pauseAudioAndTimer();  // Mettre en pause l'audio et le timer
-        stopButton.textContent = 'Resume';  // Changer le texte pour 'Resume'
-        stopButton.style.backgroundColor = 'green';  // Appliquer directement le vert pour Resume
-        retourneMenue.style.display = 'block';  // Afficher le bouton de retour seulement en mode pause
+        pauseAudioAndTimer();
+        stopButton.textContent = 'Resume';
+        stopButton.style.backgroundColor = 'green';
+        retourneMenue.style.display = 'block';
         isPaused = true;
     } else {
-        resumeAudioAndTimer();  // Reprendre l'audio et le timer
-        stopButton.textContent = 'Pause';  // Rechanger le texte pour 'Pause'
-        stopButton.style.backgroundColor = 'red';  // Appliquer directement le rouge pour Pause
-        retourneMenue.style.display = 'none';  // Masquer le bouton de retour lors de la reprise
+        resumeAudioAndTimer();
+        stopButton.textContent = 'Pause';
+        stopButton.style.backgroundColor = 'red';
+        retourneMenue.style.display = 'none';
         isPaused = false;
     }
 }
@@ -1033,11 +960,11 @@ function pauseAudioAndTimer() {
         currentAudioCoaching3.pause();
     }
     if (intervalCoaching3) {
-        remainingTime = timerDuration; // Sauvegarder le temps restant avant la pause
+        remainingTime = timerDuration;
         clearInterval(intervalCoaching3);
         intervalCoaching3 = null;
     }
-    clearTimeout(upcomingAudioTimeout); // Assurez-vous que aucun délai programmé ne reste actif.
+    clearTimeout(upcomingAudioTimeout);
     console.log("Audio et timer mis en pause.");
 }
 
@@ -1047,12 +974,12 @@ function resumeAudioAndTimer() {
         console.log("Audio resumed");
     }
     if (remainingTime > 0) {
-        startVisualTimer(remainingTime / 60); // Calculer le temps restant en minutes
+        startVisualTimer(remainingTime / 60);
     }
 }
 
 function startVisualTimer(minutes) {
-    timerDuration = minutes * 60; // Convertir les minutes en secondes
+    timerDuration = minutes * 60;
     const display = document.getElementById('digitalDisplay');
     display.style.display = 'block';
 
@@ -1067,10 +994,10 @@ function startVisualTimer(minutes) {
             display.style.display = 'none';
             console.log("Timer completed.");
 
-            stopCurrentAudio(); // Interrompre immédiatement l'audio en cours
-            playEndOfTimerSound(); // Jouer le son de la cloche
-            resetTimeSelector(); 
-            updateUIAfterTimer(); // Mettre à jour l'UI après la fin du son de la cloche
+            stopCurrentAudio();
+            playEndOfTimerSound();
+            resetTimeSelector();
+            updateUIAfterTimer();
         }
     }, 1000);
 }
@@ -1084,14 +1011,14 @@ function updateUIAfterTimer() {
         stopButton.style.display = 'none';
     }
     if (selectOptionDiv) {
-        selectOptionDiv.style.display = 'block';  // Assurez-vous de réafficher le div parent
+        selectOptionDiv.style.display = 'block';
     }
    
     if (retourneMenue) {
         retourneMenue.style.display = 'block';
     }
     
-    resetTimeSelector(); // Réinitialiser le sélecteur de temps ici aussi
+    resetTimeSelector();
 
     console.log("UI updated after timer.");
 }
@@ -1099,20 +1026,19 @@ function updateUIAfterTimer() {
 function stopCurrentAudio() {
     if (currentAudioCoaching3 && !currentAudioCoaching3.paused) {
         currentAudioCoaching3.pause();
-        currentAudioCoaching3.currentTime = 0; // Réinitialiser l'audio
+        currentAudioCoaching3.currentTime = 0;
         console.log("Current audio stopped and reset.");
     }
 }
 
 function playEndOfTimerSound() {
-    // Arrêter tous les audios et timers avant de jouer le son de la cloche
     stopAudiosAndTimersCoaching3();
 
     const bellSound = new Audio('audio/cloche.mp3');
     bellSound.play();
     bellSound.onended = function() {
         console.log('End of timer sound played.');
-        updateUIAfterTimer();  // Mettre à jour l'UI une fois le son de la cloche terminé
+        updateUIAfterTimer();
     };
 }
 
@@ -1138,7 +1064,7 @@ function stopAudiosAndTimers(resetAll = false) {
         const timeSelector = document.getElementById('timeSelector');
         const selectedTime = timeSelector ? parseInt(timeSelector.value, 10) : 0;
         if (!isNaN(selectedTime) && selectedTime > 0) {
-            timerDuration = selectedTime * 60; // Convertir la durée en secondes
+            timerDuration = selectedTime * 60;
             console.log("Timer reset to the user-selected time: " + selectedTime + " minutes.");
         } else {
             console.log("Invalid timer selection or missing time selector.");
@@ -1149,11 +1075,11 @@ function stopAudiosAndTimers(resetAll = false) {
 }
 
 function handleStopClick() {
-    resetUI(true); // Réinitialise l'interface
+    resetUI(true);
     document.getElementById('programSelect').selectedIndex = 0;
     const stopButton = document.getElementById('stopButton');
     if (stopButton) {
-        stopButton.style.display = 'none'; // Cache le bouton Stop après l'utilisation
+        stopButton.style.display = 'none';
     }
     console.log("Processus arrêté et interface réinitialisée.");
 }
