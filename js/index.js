@@ -224,7 +224,7 @@ const programs = {
  resetUI(true); // Réinitialiser l'interface utilisateur, garder la sélection si nécessaire
  
  switch (this.value) {
- case 'Coaching3':
+ case 'Coaching3': //PLANK
  initializeCoaching3UI();
  document.getElementById('tapisImage2').style.display = 'none'; // Assurez-vous que l'image est cachée initialement
  document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
@@ -647,7 +647,11 @@ const programs = {
 
 
 
-// Global variables for the timer and audio playback
+
+
+
+
+// Progamme Plank
 let timerDuration;
 let intervalCoaching3;
 let currentAudioCoaching3 = new Audio();
@@ -953,7 +957,7 @@ function configurerElementsVideo() {
  const videoContainer = document.getElementById('videoContainer2');
  const welcomeVideo = document.getElementById('welcomeVideo2');
  const videoDescription = document.getElementById('videoDescription2');
- const nextButton = document.getElementById('nextButton2');
+ const nextButton = document.getElementById('nextButton');
 
  if (videoContainer && welcomeVideo && videoDescription && nextButton) {
  videoContainer.style.display = 'block';
