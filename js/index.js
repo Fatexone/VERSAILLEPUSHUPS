@@ -234,14 +234,10 @@ function handleProgramChange() {
         case 'Coaching4':
             changeBackgroundImage('audio/KARL.jpg'); 
             initializeCoaching4UI();
-            document.getElementById('videoContainer').style.display = 'block';
-            document.getElementById('nextButton').style.display = 'block';
             break;
         default:
             changeBackgroundImage('audio/KARL.jpg'); 
             document.getElementById('returnButton').style.display = 'none';
-            document.getElementById('videoContainer').style.display = 'none';
-            document.getElementById('nextButton').style.display = 'none';
             break;
     }
 }
@@ -257,6 +253,7 @@ function setupNextButton() {
         handleNextButtonClick();
     });
 }
+
 
 function handleNextButtonClick() {
     toggleDisplay('welcomeVideo', false);
