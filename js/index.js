@@ -173,8 +173,6 @@ const programs = {
  },
  
  };
-
-
  let filesAvailable = JSON.parse(JSON.stringify(programs));
  let filesPlayed = {
      Coaching3: [],
@@ -187,28 +185,27 @@ const programs = {
  let currentAudio = new Audio();
  
  document.addEventListener('DOMContentLoaded', () => {
-    setupEventListeners();
-    resetTimeSelector();
-    initiateBlinking();
-});
-
+     setupEventListeners();
+     resetTimeSelector();
+     initiateBlinking();
+ });
+ 
  function debugLog(message) {
      console.log(`DEBUG: ${message}`);
  }
  
  // Fonction pour configurer tous les écouteurs d'événements
  function setupEventListeners() {
-    setupReturnToMenuButton2();
-    setupProgramSelector();
-    setupPompesSelector();
-    setupGoButton();
-    setupStopButton();
-    setupNextButton();
-    setupNextAudioButton();
-    setupRetourneMenueButton(); // Assurez-vous que ce bouton est configuré correctement
-    debugLog("Event listeners configured");
-}
-
+     setupReturnToMenuButton2();
+     setupProgramSelector();
+     setupPompesSelector();
+     setupGoButton();
+     setupStopButton();
+     setupNextButton();
+     setupNextAudioButton();
+     setupRetourneMenueButton(); // Assurez-vous que ce bouton est configuré correctement
+     debugLog("Event listeners configured");
+ }
  
  function setupProgramSelector() {
      const programSelect = document.getElementById('programSelect');
@@ -218,37 +215,37 @@ const programs = {
  
  // Gestion du changement de programme
  function handleProgramChange() {
-    debugLog(`Program changed to: ${this.value}`);
-    resetUI(true); // Réinitialiser l'interface utilisateur, garder la sélection si nécessaire
-
-    switch (this.value) {
-        case 'Coaching3': // PLANK
-            initializeCoaching3UI();
-            document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
-            break;
-        case 'Coaching4':
-            initializeCoaching4UI();
-            break;
-        default:
-            document.getElementById('retourneMenue').style.display = 'none'; // Masquer les boutons de retour si aucun des programmes spécifiques n'est sélectionné
-            break;
-    }
-}
-
-function setupNextButton() {
-    const nextButton = document.getElementById('nextButton');
-    nextButton.addEventListener('click', function() {
-        handleNextButtonClick();
-    });
-}
-
+     debugLog(`Program changed to: ${this.value}`);
+     resetUI(true); // Réinitialiser l'interface utilisateur, garder la sélection si nécessaire
+ 
+     switch (this.value) {
+         case 'Coaching3': // PLANK
+             initializeCoaching3UI();
+             document.getElementById('programSelect').style.display = 'none'; // Masquer le sélecteur de programme
+             break;
+         case 'Coaching4':
+             initializeCoaching4UI();
+             break;
+         default:
+             document.getElementById('retourneMenue').style.display = 'none'; // Masquer les boutons de retour si aucun des programmes spécifiques n'est sélectionné
+             break;
+     }
+ }
+ 
+ function setupNextButton() {
+     const nextButton = document.getElementById('nextButton');
+     nextButton.addEventListener('click', function() {
+         handleNextButtonClick();
+     });
+ }
+ 
  // Traitement du clic sur le bouton suivant
  function handleNextButtonClick() {
      toggleDisplay('welcomeVideo', false);
      toggleDisplay('videoDescription', false);
      toggleDisplay('tapisImage', false); // Masquer le tapisImage
      toggleDisplay('pompesSelectorContainer', true);
-     toggleDisplay('returnButton', true); // Rendre le bouton retour visible
+     toggleDisplay('returnButtonCoaching4', true); // Rendre le bouton retour visible
  
      // Réinitialiser le sélecteur de pompes
      const pompesSelector = document.getElementById('pompesSelector');
@@ -257,7 +254,7 @@ function setupNextButton() {
      document.getElementById('startButton').style.display = 'none';
  
      // Afficher et positionner le returnButton
-     const returnButton = document.getElementById('returnButton');
+     const returnButton = document.getElementById('returnButtonCoaching4');
      if (returnButton) {
          returnButton.style.display = 'block';
          const pompesSelectorContainer = document.getElementById('pompesSelectorContainer');
@@ -290,7 +287,7 @@ function setupNextButton() {
          toggleDisplay('tapisImage', false); // Assurez-vous que tapisImage reste masqué
          toggleDisplay('pompesInstruction', true);
          toggleDisplay('startButton', true);
-         toggleDisplay('returnButton', true); // Assurez-vous que le bouton de retour est toujours visible
+         toggleDisplay('returnButtonCoaching4', true); // Assurez-vous que le bouton de retour est toujours visible
      }
  }
  
@@ -411,7 +408,7 @@ function setupNextButton() {
  // Actualiser les boutons de contrôle audio après la lecture
  function updateAudioControlButtons() {
      const nextAudioButton = document.getElementById('nextAudioButton');
-     const returnButton = document.getElementById('returnButton');
+     const returnButton = document.getElementById('returnButtonCoaching4');
  
      nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
      returnButton.style.display = 'block'; // Assurez-vous que le bouton de retour est toujours visible
@@ -451,9 +448,9 @@ function setupNextButton() {
      nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
  }
  
- // menue pushups
- function setupReturnToMenuButton() {
-     const returnButton = document.getElementById('returnButton');
+ // Fonction pour gérer le bouton de retour pour Coaching4
+ function setupReturnToMenuButtonCoaching4() {
+     const returnButton = document.getElementById('returnButtonCoaching4');
      if (returnButton) {
          returnButton.addEventListener('click', function() {
              stopAudiosAndTimersCoaching4(); // Interrompre l'audio immédiatement
@@ -466,13 +463,32 @@ function setupNextButton() {
              console.log("UI reset, audio stopped, and all descriptions hidden.");
          });
      } else {
-         console.log("Return to menu button not found.");
+         console.log("Return to menu button for Coaching4 not found.");
+     }
+ }
+ 
+ // Fonction pour gérer le bouton de retour pour Coaching3
+ function setupReturnToMenuButtonCoaching3() {
+     const returnButton = document.getElementById('returnButtonCoaching3');
+     if (returnButton) {
+         returnButton.addEventListener('click', function() {
+             stopAudiosAndTimersCoaching3(); // Interrompre l'audio immédiatement
+             hideUIComponents(); // S'assurer que toutes les descriptions sont masquées
+             const programSelect = document.getElementById('programSelect');
+             if (programSelect) {
+                 programSelect.selectedIndex = 0; // Réinitialiser le sélecteur de programme à l'option par défaut
+                 programSelect.style.display = 'block'; // Afficher le sélecteur de programme
+             }
+             console.log("UI reset, audio stopped, and all descriptions hidden.");
+         });
+     } else {
+         console.log("Return to menu button for Coaching3 not found.");
      }
  }
  
  // Masquer les composants de l'UI
  function hideUIComponents() {
-     const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'tapisImage', 'returnButton', 'audioDescription', 'videoDescription'];
+     const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'tapisImage', 'returnButtonCoaching4', 'audioDescription', 'videoDescription', 'returnButtonCoaching3'];
      elementsToHide.forEach(id => toggleDisplay(id, false));
      toggleDisplay('programSelect', true); // Le sélecteur de programme doit être réaffiché
  }
@@ -509,7 +525,7 @@ function setupNextButton() {
      tapisImage.style.display = 'block';
  
      // Masquer le returnButton par défaut
-     const returnButton = document.getElementById('returnButton');
+     const returnButton = document.getElementById('returnButtonCoaching4');
      if (returnButton) {
          returnButton.style.display = 'none';
      }
@@ -577,7 +593,7 @@ function setupNextButton() {
  function resetUI(keepSelection = false) {
      const elementsToHide = [
          'audioDescription', 'videoContainer', 'pompesSelectorContainer',
-         'nextButton', 'stopButton', 'nextAudioButton', 'returnButton', 'startButton',
+         'nextButton', 'stopButton', 'nextAudioButton', 'returnButtonCoaching4', 'startButton',
          'videoContainer2', 'welcomeVideo2', 'videoDescription2', 'nextButton2',
          'tapisImage', 'tapisImage2', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
      ];
@@ -601,65 +617,19 @@ function setupNextButton() {
  }
  
  function stopAudiosAndTimersCoaching4() {
-    console.log('Stopping audios and timers for Coaching4...');
-
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-        console.log('General audio stopped and reset.');
-    }
-
-    isAudioPlaying = false;
-    console.log('Scheduled audio events cleared for Coaching4.');
-    console.log('Audios and timers stopped and reset for Coaching4.');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     console.log('Stopping audios and timers for Coaching4...');
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     if (currentAudio) {
+         currentAudio.pause();
+         currentAudio.currentTime = 0;
+         console.log('General audio stopped and reset.');
+     }
+ 
+     isAudioPlaying = false;
+     console.log('Scheduled audio events cleared for Coaching4.');
+     console.log('Audios and timers stopped and reset for Coaching4.');
+ }
+ 
  let timerDuration;
  let intervalCoaching3;
  let currentAudioCoaching3 = new Audio();
@@ -870,7 +840,7 @@ function setupNextButton() {
  function setupCoaching3UI() {
      console.log("Setting up Coaching3 UI...");
      document.getElementById('startTimerButton').addEventListener('click', handleStartTimer);
-     document.getElementById('retourneMenue').addEventListener('click', handleReturnButton);
+     document.getElementById('retourneMenue').addEventListener('click', handleReturnButtonCoaching3);
  }
  
  function handleStartTimer() {
@@ -943,9 +913,7 @@ function setupNextButton() {
      };
  }
  
-
-
- function handleReturnButton() {
+ function handleReturnButtonCoaching3() {
      const programSelect = document.getElementById('programSelect');
      if (programSelect) {
          programSelect.selectedIndex = 0;
