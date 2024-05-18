@@ -10,6 +10,12 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background 0.5s ease-in-out; /* Transition douce pour le changement de fond d'écran */
+}
+
+body.tapis-background {
+    background: url('audio/tapisImage2.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 .container {

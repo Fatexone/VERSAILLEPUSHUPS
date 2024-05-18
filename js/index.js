@@ -499,11 +499,12 @@ function initializeCoaching4UI() {
     const nextButton = document.getElementById('nextButton');
     nextButton.style.display = 'block';
     nextButton.onclick = function() {
-        document.body.classList.add('jeb3-background'); // Ajouter la classe pour changer le fond d'écran
+        document.body.classList.add('tapis-background'); // Ajouter la classe pour changer le fond d'écran
+        showTapisBackground();
         showPompesSelector();
     };
 
-    const tapisImage = document.getElementById('tapisImage');
+    const tapisImage = document.getElementById('tapisImage2');
     tapisImage.style.display = 'block';
 
     const returnButton = document.getElementById('returnButton');
@@ -511,6 +512,33 @@ function initializeCoaching4UI() {
         returnButton.style.display = 'none';
     }
 }
+
+
+
+function showTapisBackground() {
+    // Masquer tous les éléments sauf ceux nécessaires
+    const elementsToHide = [
+        'videoContainer', 'welcomeVideo', 'videoDescription', 
+        'nextButton', 'tapisImage', 'pompesSelectorContainer', 
+        'digitalDisplay', 'startTimerButton', 'stopButton'
+    ];
+    elementsToHide.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.style.display = 'none';
+    });
+
+    // Afficher le selecteur de temps et le bouton de retour
+    const timeSelector = document.getElementById('timeSelector');
+    const retourneMenue = document.getElementById('retourneMenue');
+    const tapisImage2 = document.getElementById('tapisImage2');
+
+    if (timeSelector) timeSelector.style.display = 'block';
+    if (retourneMenue) retourneMenue.style.display = 'block';
+    if (tapisImage2) tapisImage2.style.display = 'block';
+}
+
+
+
 
 function setupRetourneMenueButton() {
     const retourneMenue = document.getElementById('retourneMenue');
