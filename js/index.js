@@ -731,14 +731,8 @@ function handleNextButtonClick2() {
  document.getElementById('videoDescription2').style.display = 'none';
  document.getElementById('nextButton2').style.display = 'none';
  
- // Afficher l'image du tapis
- var tapisImage2 = document.getElementById('tapisImage2');
- if (tapisImage2) {
- tapisImage2.style.display = 'none';
- tapisImage2.style.margin = '0 auto'; // Centrer l'image horizontalement
- } else {
- console.log("tapisImage2 not found in the DOM.");
- }
+ // Réinitialiser le sélecteur de temps
+ resetTimeSelector();
 
  // Afficher le conteneur 'timeSelector' qui contient 'timeDurationSelector'
  var timeSelector = document.getElementById('timeSelector');
@@ -771,10 +765,7 @@ timeSelector.addEventListener('change', function() {
  }
 });
 
-// Réinitialiser le sélecteur de temps à la valeur par défaut au chargement de la page
-if (timeSelector) {
- timeSelector.selectedIndex = 0;
-}
+
 
 document.addEventListener('DOMContentLoaded', function() {
  setupEventListeners(); // Configure all event listeners
@@ -800,6 +791,8 @@ function initiateBlinking() {
  }
  }, 500);
 }
+
+
 function setupRetourneMenueButton() {
  const retourneMenue = document.getElementById('retourneMenue');
  if (retourneMenue) {
@@ -865,13 +858,14 @@ function handleStartTimer() {
  const startTimerButton = document.getElementById('startTimerButton');
  const stopButton = document.getElementById('stopButton');
  const timeSelector = document.getElementById('timeSelector');
-
+ const tapisImage2 = document.getElementById('tapisImage2'); // Référence au tapis
  startTimerButton.style.display = 'none'; // Masquer le bouton startTimerButton
  stopButton.style.display = 'block'; // Afficher le bouton Stop
  stopButton.textContent = 'Pause'; // Initialiser le texte du bouton stopButton à 'Pause'
  timeSelector.style.display = 'none'; // Masquer le sélecteur de temps
-
+ tapisImage2.style.display = 'none'; 
  // Afficher la première description audio
+
  const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
  if (audioDescriptionCoaching3) {
  const selectedAudioKey = audioKeys[audioIndex];
