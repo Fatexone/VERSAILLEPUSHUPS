@@ -199,7 +199,7 @@ function debugLog(message) {
 // Fonction pour configurer tous les écouteurs d'événements
 function setupEventListeners() {
     setupReturnToMenuButtonCoaching3();
-    setupReturnToMenuButtonCoaching4();
+    setupReturnToMenuButtonCoaching4(); // Assurez-vous que ce bouton est configuré
     setupProgramSelector();
     setupPompesSelector();
     setupGoButton();
@@ -450,8 +450,6 @@ function setupNextAudioButton() {
     // Initialiser le style d'affichage basé sur l'état de la séquence audio
     nextAudioButton.style.display = currentAudioIndex < currentCombination.length ? 'block' : 'none';
 }
-
-// Fonction pour gérer le bouton de retour pour Coaching4
 function setupReturnToMenuButtonCoaching4() {
     const returnButton = document.getElementById('returnButtonCoaching4');
     if (returnButton) {
@@ -469,6 +467,7 @@ function setupReturnToMenuButtonCoaching4() {
         console.log("Return to menu button for Coaching4 not found.");
     }
 }
+
 
 // Fonction pour gérer le bouton de retour pour Coaching3
 function setupReturnToMenuButtonCoaching3() {
@@ -503,9 +502,7 @@ function resetSelectors(selectorIds) {
             selector.selectedIndex = 0;
         }
     });
-}
-
-function initializeCoaching4UI() {
+}function initializeCoaching4UI() {
     const videoContainer = document.getElementById('videoContainer');
     videoContainer.style.display = 'block';
     const welcomeVideo = document.getElementById('welcomeVideo');
@@ -527,12 +524,13 @@ function initializeCoaching4UI() {
     const tapisImage = document.getElementById('tapisImage');
     tapisImage.style.display = 'block';
 
-    // Masquer le returnButton par défaut
+    // Afficher le returnButton pour Coaching4
     const returnButton = document.getElementById('returnButtonCoaching4');
     if (returnButton) {
-        returnButton.style.display = 'none';
+        returnButton.style.display = 'block';
     }
 }
+
 
 function displayNoCombinationFound() {
     const pompesInstruction = document.getElementById('pompesInstruction');
