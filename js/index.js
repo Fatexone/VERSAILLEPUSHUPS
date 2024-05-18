@@ -482,20 +482,23 @@ function resetSelectors(selectorIds) {
 
 function initializeCoaching4UI() {
     const videoContainer = document.getElementById('videoContainer');
-    videoContainer.style.display = 'block';
+    videoContainer.style.display = 'none'; // Assurez-vous que la vidéo est masquée
     const welcomeVideo = document.getElementById('welcomeVideo');
-    welcomeVideo.style.display = 'block';
+    welcomeVideo.style.display = 'none'; // Assurez-vous que la vidéo est masquée
 
     const videoDescription = document.getElementById('videoDescription');
-    videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups";
+    videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
     videoDescription.style.display = 'block';
 
     const programSelect = document.getElementById('programSelect');
     programSelect.style.display = 'none';
 
     const nextButton = document.getElementById('nextButton');
-    nextButton.style.display = 'block';
-    nextButton.onclick = showPompesSelector;
+    nextButton.style.display = 'block'; // Assurez-vous que le bouton est visible
+    nextButton.onclick = function() {
+        changeBackgroundImage('audio/JEB3.JPEG'); // Changer le fond d'écran lors du clic sur le bouton Next
+        showPompesSelector();
+    };
 
     const tapisImage = document.getElementById('tapisImage');
     tapisImage.style.display = 'block';
@@ -505,6 +508,7 @@ function initializeCoaching4UI() {
         returnButton.style.display = 'none';
     }
 }
+
 
 function displayNoCombinationFound() {
     const pompesInstruction = document.getElementById('pompesInstruction');
