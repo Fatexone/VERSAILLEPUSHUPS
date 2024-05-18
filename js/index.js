@@ -903,11 +903,11 @@ function configurerElementsVideo() {
     const nextButton = document.getElementById('nextButton2');
 
     if (videoContainer && welcomeVideo && videoDescription && nextButton) {
-        videoContainer.style.display = 'block';
-        welcomeVideo.style.display = 'block';
+        videoContainer.style.display = 'none';
+        welcomeVideo.style.display = 'none';
         videoDescription.textContent = "Bienvenue dans le programme Plank! Choisissez votre exercice...";
         videoDescription.style.display = 'block';
-        nextButton.style.display = 'block';
+        nextButton.style.display = 'none';
     } else {
         console.log("Des éléments de Coaching3 sont manquants dans le DOM.");
     }
