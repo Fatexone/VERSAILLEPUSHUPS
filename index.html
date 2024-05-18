@@ -11,7 +11,7 @@
  <div class="container">
 
 
-  //Toto
+  //Totor
 
   <div class="control-group" id="programSelectorContainer">
     <label for="programSelect"></label>
@@ -49,20 +49,15 @@
 
   <div id="digitalDisplay" class="digital-display" style="display:none;">00:00</div>
 
-  <div id="timeSelector" class="time-selector" style="display:none;">
-    <div id="timeDurationSelector">
-        <div class="flash-orange-inner">
-            <select>
-                <option value="">Select a Time</option>
-                <option value="1">1 minute</option>
-                <option value="3">3 minutes</option>
-                <option value="5">5 minutes</option>
-                <option value="7">7 minutes</option>
-                <option value="10">10 minutes</option>
-            </select>
-        </div>
-    </div>
+  <div id="timeSelector" style="display: none;">
+    <select id="timeDurationSelector">
+        <option value="">-- Sélectionnez la durée --</option>
+        <option value="5">5 minutes</option>
+        <option value="10">10 minutes</option>
+    </select>
+    <button id="startTimerButton" style="display: none;">Démarrer</button>
 </div>
+
 
   <button id="startTimerButton" class="action-button" style="display: none;">Start Timer</button>
   <button id="stopButton" class="action-button" style="display: none;">Pause/Resume</button>
