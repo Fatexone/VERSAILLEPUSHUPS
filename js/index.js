@@ -7,6 +7,7 @@ const programs = {
     };
 
 
+
     
     const descriptions = {
   
@@ -654,7 +655,7 @@ function initializeCoaching3UI() {
     setupEventListeners();
     resetUI();
     configurerElementsVideo();
-    document.getElementById('nextButton2').style.display = 'block';
+    document.getElementById('nextButton2').style.display = 'none';
     console.log("Interface Coaching3 initialisée et prête.");
 }
 
@@ -892,17 +893,17 @@ function handleReturnButton() {
 }
 
 function configurerElementsVideo() {
-    const videoContainer = document.getElementById('videoContainer2');
-    const welcomeVideo = document.getElementById('welcomeVideo2');
-    const videoDescription = document.getElementById('videoDescription2');
-    const nextButton = document.getElementById('nextButton2');
+    const videoContainer2 = document.getElementById('videoContainer2');
+    const welcomeVideo2 = document.getElementById('welcomeVideo2');
+    const videoDescription2 = document.getElementById('videoDescription2');
+    const nextButton2 = document.getElementById('nextButton2');
 
-    if (videoContainer && welcomeVideo && videoDescription && nextButton) {
-        videoContainer.style.display = 'block';
-        welcomeVideo.style.display = 'block';
-        videoDescription.textContent = "Bienvenue dans le programme Plank! Choisissez votre exercice...";
-        videoDescription.style.display = 'block';
-        nextButton.style.display = 'block';
+    if (videoContainer2 && welcomeVideo2 && videoDescription2 && nextButton2) {
+        videoContainer2.style.display = 'none';
+        welcomeVideo2.style.display = 'none';
+        videoDescription2.textContent = "Bienvenue dans le programme Plank! Choisissez votre exercice...";
+        videoDescription2.style.display = 'block';
+        nextButton2.style.display = 'none';
     } else {
         console.log("Des éléments de Coaching3 sont manquants dans le DOM.");
     }
