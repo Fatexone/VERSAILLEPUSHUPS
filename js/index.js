@@ -210,6 +210,7 @@ function setupEventListeners() {
     setupReturnToMenuButton();
     debugLog("Event listeners configured");
 }
+
 function setupProgramSelector() {
     const programSelect = document.getElementById('programSelect');
     programSelect.addEventListener('change', handleProgramChange);
@@ -227,9 +228,6 @@ function handleProgramChange() {
             document.getElementById('programSelect').style.display = 'none';
             document.getElementById('timeSelector').style.display = 'block';
             document.getElementById('retourneMenue').style.display = 'block';
-            // Masquer la vidéo et le bouton Next pour Coaching3
-            document.getElementById('videoContainer').style.display = 'none';
-            document.getElementById('nextButton').style.display = 'none';
             break;
         case 'Coaching4':
             changeBackgroundImage('audio/KARL.jpg'); 
@@ -253,7 +251,6 @@ function setupNextButton() {
         handleNextButtonClick();
     });
 }
-
 
 function handleNextButtonClick() {
     toggleDisplay('welcomeVideo', false);
