@@ -693,15 +693,7 @@ function stopAudiosAndTimersCoaching3() {
  console.log('Audios and timers stopped and reset for Coaching3.');
 }
 
-function initializeCoaching3UI() {
- console.log("Initialisation de l'interface Coaching3");
- resetTimer();
- setupEventListeners();
- resetUI();
- configurerElementsVideo();
- document.getElementById('nextButton2').style.display = 'block'; // Afficher le bouton nextButton2 après l'initialisation
- console.log("Interface Coaching3 initialisée et prête.");
-}
+
 
 function resetTimer() {
  if (intervalCoaching3) {
@@ -778,8 +770,28 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log('timeDurationSelector or startTimerButton not found in the DOM.');
     }
+
+    // Appeler initializeCoaching3UI pour s'assurer que nextButton2 est affiché
+    initializeCoaching3UI();
 });
 
+function initializeCoaching3UI() {
+    console.log("Initialisation de l'interface Coaching3");
+    resetTimer();
+    setupEventListeners();
+    resetUI();
+    configurerElementsVideo();
+
+    const nextButton2 = document.getElementById('nextButton2');
+    if (nextButton2) {
+        nextButton2.style.display = 'block'; // Afficher le bouton nextButton2 après l'initialisation
+        console.log("Bouton nextButton2 affiché.");
+    } else {
+        console.log("Le bouton nextButton2 n'a pas été trouvé dans le DOM.");
+    }
+
+    console.log("Interface Coaching3 initialisée et prête.");
+}
 
 
 
