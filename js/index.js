@@ -487,7 +487,7 @@ function initializeCoaching4UI() {
     welcomeVideo.style.display = 'block';
 
     const videoDescription = document.getElementById('videoDescription');
-    videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups";
+    videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
     videoDescription.style.display = 'block';
 
     const programSelect = document.getElementById('programSelect');
@@ -505,8 +505,6 @@ function initializeCoaching4UI() {
         returnButton.style.display = 'none';
     }
 }
-
-
 
 function displayNoCombinationFound() {
     const pompesInstruction = document.getElementById('pompesInstruction');
@@ -904,7 +902,7 @@ function configurerElementsVideo() {
         videoContainer2.style.display = 'none';
         welcomeVideo2.style.display = 'none';
         videoDescription2.textContent = "Bienvenue dans le programme Plank! Choisissez votre exercice...";
-        videoDescription2.style.display = 'none';
+        videoDescription2.style.display = 'block';
         nextButton2.style.display = 'none';
     } else {
         console.log("Des éléments de Coaching3 sont manquants dans le DOM.");
