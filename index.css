@@ -195,7 +195,7 @@ video, .blink, .video-description, .audio-description {
 
 @keyframes flashOrangeLight {
     0%, 100% { background-color: transparent; }
-    50% { background-color: #FFA500; }
+    50% { background-color: #ffffff; }
 }
 
 .flash-orange-inner {
