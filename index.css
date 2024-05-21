@@ -1,3 +1,23 @@
+/* Ajouter ce CSS à votre fichier index.css */
+
+/* Animation de clignotement */
+@keyframes clignoter {
+    0%, 100% {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    50% {
+        background-color: #cccccc;
+        color: #000000;
+    }
+}
+
+/* Appliquer l'animation aux boutons et sélecteurs */
+button.clignotant, select.clignotant {
+    animation: clignoter 1s infini;
+}
+
+/* CSS existant version 12*/
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
 
 body, html {
@@ -71,7 +91,7 @@ select:focus, input[type="number"]:focus, button:focus {
     }
 }
 
-.video-container, video, .blink, .video-description, .audio-description {
+.video-container, video, .video-description, .audio-description {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +100,7 @@ select:focus, input[type="number"]:focus, button:focus {
     margin: 0 auto;
 }
 
-video, .blink, .video-description, .audio-description {
+video, .video-description, .audio-description {
     width: 100%;
     margin: 20px auto;
 }
@@ -103,15 +123,6 @@ video, .blink, .video-description, .audio-description {
         font-size: 2rem;
         padding: 15px 30px;
     }
-}
-
-@keyframes blink-animation {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-.blink {
-    animation: blink-animation 1s linear infinite;
 }
 
 .action-button, .return-button {
@@ -155,11 +166,6 @@ video, .blink, .video-description, .audio-description {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes flashYellow {
-    0%, 100% { background-color: transparent; }
-    50% { background-color: yellow; }
-}
-
 .image-container img {
     max-width: 100%;
     height: auto;
@@ -193,30 +199,6 @@ video, .blink, .video-description, .audio-description {
     }
 }
 
-@keyframes flashOrangeLight {
-    0%, 100% { background-color: transparent; }
-    50% { background-color: #ffffff; }
-}
-
-.flash-orange-inner {
-    animation: flashOrangeLight 1s linear infinite;
-}
-
-#programSelect,
-#nextButton,
-#nextButton2,
-#timeSelector,
-#startTimerButton,
-#pompesSelectorContainer,
-
-#pompesSelectorContainer {
-    animation: flashOrangeLight 1s linear infinite;
-}
-
-#timeDurationSelector > .flash-orange-inner {
-    animation: flashOrangeLight 1s linear infinite;
-}
-
 .homepage-title {
     color: red;
 }
@@ -246,3 +228,155 @@ video, .blink, .video-description, .audio-description {
     bottom: 10px;
     right: 10px;
 }
+
+/* Initialisation du style pour masquer le bouton nextAudioButton */
+#nextAudioButton {
+    display: none; /* Par défaut, le bouton est masqué */
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
+    border: none; /* Pas de bordure */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Alignement du texte */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+    transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets de survol */
+}
+
+/* Effet de survol */
+#nextAudioButton:hover {
+    background-color: #369636; /* Couleur de fond au survol */
+    transform: scale(1.05); /* Agrandissement léger au survol */
+}
+
+/* Effet lors de l'appui */
+#nextAudioButton:active {
+    transform: scale(0.95); /* Rétrécissement léger lors de l'appui */
+}
+
+/* Style pour les boutons nextButton, nextButton2 et startTimerButton */
+#nextButton, #nextButton2, #startTimerButton {
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
+    border: none; /* Pas de bordure */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Alignement du texte */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+    transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets de survol */
+}
+
+/* Effet de survol */
+#nextButton:hover, #nextButton2:hover, #startTimerButton:hover {
+    background-color: #369636; /* Couleur de fond au survol */
+    transform: scale(1.05); /* Agrandissement léger au survol */
+}
+
+/* Effet lors de l'appui */
+#nextButton:active, #nextButton2:active, #startTimerButton:active {
+    transform: scale(0.95); /* Rétrécissement léger lors de l'appui */
+}
+
+
+
+
+/* Style pour le bouton returnButtonCoaching4 */
+#returnButtonCoaching4 {
+    background-color: #652020; /* Fond rouge */
+    color: #ffffff; /* Texte blanc */
+    padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
+    border: none; /* Pas de bordure */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Alignement du texte */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+    transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets de survol */
+}
+
+/* Effet de survol */
+#returnButtonCoaching4:hover {
+    background-color: #cc0000; /* Couleur de fond au survol */
+    transform: scale(1.05); /* Agrandissement léger au survol */
+}
+
+/* Effet lors de l'appui */
+#returnButtonCoaching4:active {
+    transform: scale(0.95); /* Rétrécissement léger lors de l'appui */
+}
+
+
+/* Style pour le bouton retourneMenue */
+#retourneMenue {
+    background-color: #552c2c; /* Fond rouge */
+    color: #ffffff; /* Texte blanc */
+    padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
+    border: none; /* Pas de bordure */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    text-align: center; /* Alignement du texte */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+    transition: background-color 0.3s, transform 0.2s; /* Transition pour les effets de survol */
+}
+
+/* Effet de survol */
+#retourneMenue:hover {
+    background-color: #cc0000; /* Couleur de fond au survol */
+    transform: scale(1.05); /* Agrandissement léger au survol */
+}
+
+/* Effet lors de l'appui */
+#retourneMenue:active {
+    transform: scale(0.95); /* Rétrécissement léger lors de l'appui */
+}
+
+/* Supprimer l'animation de clignotement pour retourneMenue */
+#retourneMenue.clignotant {
+    animation: none; /* Désactiver l'animation de clignotement */
+}
+
+
+/* Ajouter ce CSS à votre fichier index.css */
+
+/* Conteneur pour centrer le logo */
+#logoContainer {
+    position: relative;
+    width: 100%;
+    height: 100px; /* Ajustez cette hauteur selon la taille de votre logo */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajustez le marge selon vos besoins */
+}
+
+/* Animation pour le logo */
+#animatedLogo {
+    position: absolute;
+    top: 0;
+    left: -200px; /* Commence en dehors de l'écran, ajustez selon la taille de votre logo */
+    animation: moveLogo 5s linear infinite;
+}
+
+/* Définir l'animation */
+@keyframes moveLogo {
+    0% {
+        left: -200px; /* Commence en dehors de l'écran */
+    }
+    50% {
+        left: calc(100% - 200px); /* Se déplace jusqu'au bord droit de l'écran */
+    }
+    100% {
+        left: -200px; /* Retourne au début */
+    }
+}
+
+
