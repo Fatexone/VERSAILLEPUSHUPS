@@ -656,7 +656,7 @@ const programs = {
        console.log("Audio keys shuffled.");
    }
    
-   // Prepare the audio playlist by shuffling once
+   // Prepare the audio playlist by shuffling onc yese
    shuffleArray(audioKeys);
    
    function resetTimeSelector() {
