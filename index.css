@@ -154,7 +154,7 @@ video, .video-description, .audio-description {
 }
 
 .return-button:hover {
-    background-color: #cc0000;
+    background-color: #0f0e0e;
     transform: scale(0.95);
 }
 
