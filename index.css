@@ -264,7 +264,7 @@ video, .video-description, .audio-description {
 
 /* Style pour les boutons nextButton, nextButton2 et startTimerButton */
 #nextButton, #nextButton2, #startTimerButton {
-    background-color: #4CAF50; /* Couleur de fond */
+    background-color: #111411; /* Couleur de fond */
     color: white; /* Couleur du texte */
     padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
     border-radius: 5px; /* Bords arrondis */
