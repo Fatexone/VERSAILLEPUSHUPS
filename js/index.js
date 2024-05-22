@@ -273,7 +273,7 @@ const programs = {
         toggleDisplay('videoDescription', false);
         toggleDisplay('tapisImage', false);
         toggleDisplay('pompesSelectorContainer', true);
-        toggleDisplay('pushupsGif', true); // Afficher le GIF de pompes
+        
     
         const pompesSelector = document.getElementById('pompesSelector');
         pompesSelector.selectedIndex = 0;
@@ -731,7 +731,6 @@ const programs = {
         document.getElementById('welcomeVideo2').style.display = 'none';
         document.getElementById('videoDescription2').style.display = 'none';
         document.getElementById('nextButton2').style.display = 'none';
-        toggleDisplay('plankGif', true); // Afficher le GIF de gainage
     
         resetTimeSelector();
     
