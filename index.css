@@ -67,6 +67,10 @@ select, input[type="number"], button {
     cursor: pointer;
     display: block;
     margin: 20px auto;
+    text-align-last: center; /* Centre le texte de l'option sélectionnée */
+    -webkit-appearance: none; /* Supprime l'apparence par défaut sur certains navigateurs */
+    -moz-appearance: none;
+    appearance: none;
 }
 
 select option {
