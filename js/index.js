@@ -506,7 +506,7 @@ const programs = {
         welcomeVideo.style.display = 'block';
     
         const videoDescription = document.getElementById('videoDescription');
-        videoDescription.textContent = "36 hand positions, from 3 to 468 push-ups and/or 468 seconds of planking.";
+        videoDescription.textContent = " Welcome to the Pushups program! Choose your way ! 36 hand positions, from 3 to 468 push-ups ";
         videoDescription.style.display = 'block';
     
         const programSelect = document.getElementById('programSelect');
