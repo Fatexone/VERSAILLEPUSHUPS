@@ -367,18 +367,16 @@ video, .video-description, .audio-description {
 }
 
 /* Définir l'animation */
-@keyframes moveAndRotateLogo {
+@keyframes moveLogo {
     0% {
         left: -200px; /* Commence en dehors de l'écran */
-        transform: rotate(0deg) scale(1); /* Rotation initiale */
     }
     50% {
         left: calc(100% - 200px); /* Se déplace jusqu'au bord droit de l'écran */
-        transform: rotate(180deg) scale(1.2); /* Rotation et zoom */
     }
     100% {
         left: -200px; /* Retourne au début */
-        transform: rotate(360deg) scale(1); /* Retour à la rotation initiale */
     }
 }
+
 
