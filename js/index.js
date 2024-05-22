@@ -697,7 +697,7 @@ const programs = {
        if (videoContainer && welcomeVideo && videoDescription && nextButton) {
            videoContainer.style.display = 'block';
            welcomeVideo.style.display = 'block';
-           videoDescription.textContent = "Bienvenue dans le programme Plank! Choisissez votre exercice...";
+           videoDescription.textContent = "Welcome to the Plank program! Choose your exercise time...";
            videoDescription.style.display = 'block';
            nextButton.style.display = 'block';
            console.log("Components for Coaching3 displayed.");
@@ -782,6 +782,7 @@ const programs = {
        resetTimeSelector();
        initiateBlinking();
        setupTimeSelector();
+       window.initialized = true;
    });
    
    let blinkingIntervals = [];
