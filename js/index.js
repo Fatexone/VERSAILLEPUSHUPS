@@ -880,7 +880,7 @@ const programs = {
             stopButton.style.display = 'block';
             stopButton.textContent = 'Pause';
             timeSelector.style.display = 'none';
-           
+            tapisImage2.style.display = 'none';
     
             const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
             if (audioDescriptionCoaching3) {
