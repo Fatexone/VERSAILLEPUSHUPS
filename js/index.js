@@ -6,7 +6,7 @@ const programs = {
     
     };
    
-    
+  
     const descriptions = {
     
     
@@ -192,7 +192,6 @@ const programs = {
     let isPaused = false;
     let remainingTime = 0;
     let upcomingAudioTimeout;
-    
     document.addEventListener('DOMContentLoaded', () => {
         initializeAudioContext();
         loadBellSound();
@@ -608,7 +607,7 @@ const programs = {
             'audioDescription', 'videoContainer', 'pompesSelectorContainer',
             'nextButton', 'stopButton', 'nextAudioButton', 'returnButtonCoaching4', 'startButton',
             'videoContainer2', 'welcomeVideo2', 'videoDescription2', 'nextButton2',
-            'tapisImage', 'tapisImage2', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
+            'tapisImage', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
         ];
         elementsToHide.forEach(id => {
             const element = document.getElementById(id);
@@ -646,7 +645,7 @@ const programs = {
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            [array[i], array[j]] = [array[j], array[i]];
         }
         console.log("Audio keys shuffled.");
     }
@@ -705,7 +704,7 @@ const programs = {
             clearInterval(intervalCoaching3);
             intervalCoaching3 = null;
         }
-        timerDuration = 0; // Réinitialisation de la durée du timer
+        timerDuration = 0;
         const display = document.getElementById('digitalDisplay');
         if (display) {
             display.textContent = "00:00";
@@ -831,7 +830,7 @@ const programs = {
     }
     
     function hideCoaching3Components() {
-        const elementsToHide = ['tapisImage2', 'timeSelector', 'startTimerButton', 'stopButton', 'retourneMenue'];
+        const elementsToHide = ['timeSelector', 'startTimerButton', 'stopButton', 'retourneMenue'];
         elementsToHide.forEach(id => {
             const element = document.getElementById(id);
             if (element) element.style.display = 'none';
@@ -873,12 +872,10 @@ const programs = {
             const startTimerButton = document.getElementById('startTimerButton');
             const stopButton = document.getElementById('stopButton');
             const timeSelector = document.getElementById('timeSelector');
-            const tapisImage2 = document.getElementById('tapisImage2');
             startTimerButton.style.display = 'none';
             stopButton.style.display = 'block';
             stopButton.textContent = 'Pause';
             timeSelector.style.display = 'none';
-            tapisImage2.style.display = 'none';
     
             const audioDescriptionCoaching3 = document.getElementById('audioDescriptionCoaching3');
             if (audioDescriptionCoaching3) {
@@ -937,14 +934,6 @@ const programs = {
         }
         console.log("Bouton de retour géré et UI réinitialisée.");
     
-        const tapisImage2 = document.getElementById('tapisImage2');
-        if (tapisImage2) {
-            tapisImage2.style.display = 'none';
-            console.log("Tapis image hidden");
-        } else {
-            console.log("TapisImage2 not found on return");
-        }
-    
         resetTimeSelector();
     }
     
@@ -976,6 +965,7 @@ const programs = {
         stopButton.style.display = 'none';
         console.log("Configuration du bouton Stop terminée.");
     }
+    
     
     function handlePauseResumeClick() {
         const stopButton = document.getElementById('stopButton');
