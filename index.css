@@ -316,7 +316,7 @@ video, .video-description, .audio-description {
 
 /* Style pour le bouton retourneMenue */
 #retourneMenue {
-    background-color: #552c2c; /* Fond rouge */
+    background-color: #100e0e; /* Fond rouge */
     color: #ffffff; /* Texte blanc */
     padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
     border-radius: 5px; /* Bords arrondis */
