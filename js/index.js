@@ -1165,7 +1165,7 @@ const programs = {
        console.log("Processus arrêté et interface réinitialisée.");
    }
    
-   // Appel des fonctions de configuration lorsque le DOM est prêt
+   // Appel des fonctions de configuration lorsque le DOM tes est prêt
    document.addEventListener('DOMContentLoaded', function() {
        setupEventListeners();
        setupCoaching3UI();
