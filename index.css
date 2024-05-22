@@ -154,7 +154,7 @@ video, .video-description, .audio-description {
 }
 
 .return-button:hover {
-    background-color: #0f0e0e;
+    background-color: #cc0000;
     transform: scale(0.95);
 }
 
@@ -264,7 +264,7 @@ video, .video-description, .audio-description {
 
 /* Style pour les boutons nextButton, nextButton2 et startTimerButton */
 #nextButton, #nextButton2, #startTimerButton {
-    background-color: #111411; /* Couleur de fond */
+    background-color: #4CAF50; /* Couleur de fond */
     color: white; /* Couleur du texte */
     padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
     border-radius: 5px; /* Bords arrondis */
@@ -290,7 +290,7 @@ video, .video-description, .audio-description {
 
 /* Style pour le bouton returnButtonCoaching4 */
 #returnButtonCoaching4 {
-    background-color: #151010; /* Fond rouge */
+    background-color: #652020; /* Fond rouge */
     color: #ffffff; /* Texte blanc */
     padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
     border-radius: 5px; /* Bords arrondis */
@@ -316,7 +316,7 @@ video, .video-description, .audio-description {
 
 /* Style pour le bouton retourneMenue */
 #retourneMenue {
-    background-color: #100e0e; /* Fond rouge */
+    background-color: #552c2c; /* Fond rouge */
     color: #ffffff; /* Texte blanc */
     padding: 10px 20px; /* Rembourrage pour agrandir le bouton */
     border-radius: 5px; /* Bords arrondis */
