@@ -192,39 +192,14 @@ const programs = {
     let isPaused = false;
     let remainingTime = 0;
     let upcomingAudioTimeout;
+   
+
     document.addEventListener('DOMContentLoaded', () => {
         initializeAudioContext();
         loadBellSound();
         setupEventListeners();
         resetTimeSelector();
     });
-    
-    function debugLog(message) {
-        console.log(`DEBUG: ${message}`);
-    }
-    
-    function initializeAudioContext() {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    
-    function loadBellSound() {
-        return fetch('audio/cloche.mp3')
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-            .then(audioBuffer => {
-                bellSoundBuffer = audioBuffer;
-            })
-            .catch(e => console.error('Error loading bell sound:', e));
-    }
-    
-    function playBellSound() {
-        if (bellSoundBuffer) {
-            const source = audioContext.createBufferSource();
-            source.buffer = bellSoundBuffer;
-            source.connect(audioContext.destination);
-            source.start();
-        }
-    }
     
     function setupEventListeners() {
         setupReturnToMenuButtonCoaching3();
@@ -271,7 +246,6 @@ const programs = {
     function handleNextButtonClick() {
         toggleDisplay('welcomeVideo', false);
         toggleDisplay('videoDescription', false);
-        toggleDisplay('tapisImage', false);
         toggleDisplay('pompesSelectorContainer', true);
     
         const pompesSelector = document.getElementById('pompesSelector');
@@ -305,7 +279,6 @@ const programs = {
     async function handlePompesSelectorChange(value) {
         if (value) {
             await calculateProgramCombinations(parseInt(value, 10));
-            toggleDisplay('tapisImage', false);
             toggleDisplay('pompesInstruction', true);
             toggleDisplay('startButton', true);
             toggleDisplay('returnButtonCoaching4', true);
@@ -416,7 +389,6 @@ const programs = {
         audioDescription.textContent = description;
         audioDescription.classList.add('text-description');
         audioDescription.style.display = isVisible ? 'block' : 'none';
-        document.getElementById('tapisImage').style.display = 'none'; 
     }
     
     function updateAudioControlButtons(isLastAudio) {
@@ -506,7 +478,7 @@ const programs = {
     }
     
     function hideUIComponents() {
-        const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'retourneMenue', 'tapisImage', 'returnButtonCoaching4', 'audioDescription', 'videoDescription', 'returnButtonCoaching3'];
+        const elementsToHide = ['pompesSelectorContainer', 'pompesInstruction', 'programSelect', 'retourneMenue', 'returnButtonCoaching4', 'audioDescription', 'videoDescription', 'returnButtonCoaching3'];
         elementsToHide.forEach(id => toggleDisplay(id, false));
         toggleDisplay('programSelect', true);
     }
@@ -607,7 +579,7 @@ const programs = {
             'audioDescription', 'videoContainer', 'pompesSelectorContainer',
             'nextButton', 'stopButton', 'nextAudioButton', 'returnButtonCoaching4', 'startButton',
             'videoContainer2', 'welcomeVideo2', 'videoDescription2', 'nextButton2',
-            'tapisImage', 'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
+            'timeSelector', 'digitalDisplay', 'retourneMenue', 'startTimerButton'
         ];
         elementsToHide.forEach(id => {
             const element = document.getElementById(id);
@@ -627,7 +599,12 @@ const programs = {
         currentAudioIndex = 0;
         isAudioPlaying = false;
     }
+
     
+
+    // jusqu'ici 
+
+
     function stopAudiosAndTimersCoaching4() {
         console.log('Stopping audios and timers for Coaching4...');
     
