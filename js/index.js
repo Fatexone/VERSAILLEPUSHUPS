@@ -219,7 +219,7 @@ const programs = {
        resetUI(true);
 
        const returnButtonCoaching4 = document.getElementById('returnButtonCoaching4');
-       returnButtonCoaching4.style.display = 'none'; // Assurez-vous que le bouton est caché par défaut
+       returnButtonCoaching4.style.display = 'none'; // Assurez-vous que le bouton est caché par défaut test 
    
    
        switch (this.value) {
