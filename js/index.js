@@ -510,7 +510,7 @@ const programs = {
     
         const nextButton = document.getElementById('nextButton');
         nextButton.style.display = 'block';
-        nextButton.onclick = handleNextButtonClick; ;
+        nextButton.onclick = showPompesSelector;
     
     
         const returnButton = document.getElementById('returnButtonCoaching4');
