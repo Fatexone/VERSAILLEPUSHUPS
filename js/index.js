@@ -218,10 +218,7 @@ const programs = {
        debugLog(`Program changed to: ${this.value}`);
        resetUI(true);
 
-       const returnButtonCoaching4 = document.getElementById('returnButtonCoaching4');
-       returnButtonCoaching4.style.display = 'none'; // Assurez-vous que le bouton est caché par défaut test 
-   
-   
+    
        switch (this.value) {
            case 'Coaching3':
                initializeCoaching3UI();
@@ -247,7 +244,6 @@ const programs = {
         toggleDisplay('videoDescription', false);
         toggleDisplay('tapisImage', false);
         toggleDisplay('pompesSelectorContainer', true);
-        toggleDisplay('returnButtonCoaching4', true);
     
         const pompesSelector = document.getElementById('pompesSelector');
         pompesSelector.selectedIndex = 0;
@@ -256,11 +252,7 @@ const programs = {
     
         const returnButton = document.getElementById('returnButtonCoaching4');
         if (returnButton) {
-            returnButton.style.display = 'block';
-            const pompesSelectorContainer = document.getElementById('pompesSelectorContainer');
-            if (pompesSelectorContainer) {
-                pompesSelectorContainer.appendChild(returnButton);
-            }
+            returnButton.style.display = 'block'; // Afficher le bouton quand nécessaire Test
         }
     }
     
