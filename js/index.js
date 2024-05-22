@@ -252,7 +252,7 @@ const programs = {
     
         const returnButton = document.getElementById('returnButtonCoaching4');
         if (returnButton) {
-            returnButton.style.display = 'block'; // Afficher le bouton quand nécessaire Testi
+            returnButton.style.display = 'block'; // Afficher le bouton quand nécessaire Test
         }
     }
     
@@ -510,11 +510,14 @@ const programs = {
     
         const nextButton = document.getElementById('nextButton');
         nextButton.style.display = 'block';
-        nextButton.onclick = handleNextButtonClick; // Assurez-vous d'appeler la bonne fonction
+        nextButton.onclick = handleNextButtonClick; ;
     
-        // Ne rien faire avec `returnButtonCoaching4` ici
+    
+        const returnButton = document.getElementById('returnButtonCoaching4');
+        if (returnButton) {
+            returnButton.style.display = 'block';
+        }
     }
-    
     
     function displayNoCombinationFound() {
         const pompesInstruction = document.getElementById('pompesInstruction');
