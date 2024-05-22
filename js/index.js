@@ -455,6 +455,10 @@ const programs = {
                 }
                 initiateBlinking(); // Reinitialize blinking when returning
                 console.log("UI reset, audio stopped, and all descriptions hidden.");
+
+                 // Masquer la vidéo et le bouton nextButton
+                toggleDisplay('welcomeVideo', false);
+                toggleDisplay('nextButton', false);
             });
         } else {
             console.log("Return to menu button for Coaching4 not found.");
