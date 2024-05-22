@@ -62,23 +62,21 @@ select, input[type="number"], button {
     color: #000000;
     font-size: 16px;
     font-weight: bold;
-    text-align: center; /* Centre le texte horizontalement */
+    text-align: center;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: block;
     margin: 20px auto;
-    text-align-last: center; /* Centre le texte de l'option sélectionnée */
-    -webkit-appearance: none; /* Supprime l'apparence par défaut sur certains navigateurs */
+    text-align-last: center;
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
 select option {
-    text-align: center; /* Centre le texte des options */
-}
-
-select:focus, input[type="number"]:focus, button:focus {
-    outline: none;
+    text-align: center;
+    background: #ffffff;
+    color: #000000;
 }
 
 .video-description, .audio-description {

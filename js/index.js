@@ -788,31 +788,39 @@ const programs = {
    let blinkingIntervals = [];
    
    function initiateBlinking() {
-       const selectors = ['timeDurationSelector', 'programSelect', 'pompesSelector'];
-   
-       // Clear any existing intervals before starting new ones
-       blinkingIntervals.forEach(interval => clearInterval(interval));
-       blinkingIntervals = [];
-   
-       selectors.forEach(selectorId => {
-           const selector = document.getElementById(selectorId);
-           let isDefault = true;
-   
-           if (selector) {
-               const blinkingInterval = setInterval(() => {
-                   if (selector.value === "") {
-                       selector.style.backgroundColor = isDefault ? 'yellow' : 'white';
-                       isDefault = !isDefault;
-                   } else {
-                       clearInterval(blinkingInterval);
-                       selector.style.backgroundColor = 'white';
-                   }
-               }, 500);
-   
-               blinkingIntervals.push(blinkingInterval); // Keep track of the interval
-           }
-       });
-   }
+    const selectors = ['timeDurationSelector', 'programSelect', 'pompesSelector'];
+
+    // Clear any existing intervals before starting new ones
+    blinkingIntervals.forEach(interval => clearInterval(interval));
+    blinkingIntervals = [];
+
+    selectors.forEach(selectorId => {
+        const selector = document.getElementById(selectorId);
+        let isDefault = true;
+
+        if (selector) {
+            const blinkingInterval = setInterval(() => {
+                if (selector.value === "") {
+                    if (isDefault) {
+                        selector.style.backgroundColor = 'black';
+                        selector.style.color = 'white';
+                    } else {
+                        selector.style.backgroundColor = 'white';
+                        selector.style.color = 'black';
+                    }
+                    isDefault = !isDefault;
+                } else {
+                    clearInterval(blinkingInterval);
+                    selector.style.backgroundColor = 'white';
+                    selector.style.color = 'black';
+                }
+            }, 500);
+
+            blinkingIntervals.push(blinkingInterval); // Keep track of the interval
+        }
+    });
+}
+
    
    
    function setupRetourneMenueButton() {
