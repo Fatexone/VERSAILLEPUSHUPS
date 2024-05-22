@@ -217,6 +217,10 @@ const programs = {
    function handleProgramChange() {
        debugLog(`Program changed to: ${this.value}`);
        resetUI(true);
+
+       const returnButtonCoaching4 = document.getElementById('returnButtonCoaching4');
+       returnButtonCoaching4.style.display = 'none'; // Assurez-vous que le bouton est caché par défaut
+   
    
        switch (this.value) {
            case 'Coaching3':
