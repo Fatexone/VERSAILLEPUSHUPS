@@ -1,6 +1,7 @@
 /* Ajouter ce CSS à votre fichier index.css */
 
 /* Animation de clignotement */
+/*
 @keyframes clignoter {
     0%, 100% {
         background-color: #ffffff;
@@ -13,9 +14,12 @@
 }
 
 /* Appliquer l'animation aux boutons et sélecteurs */
+/*
 button.clignotant, select.clignotant {
     animation: clignoter 1s infini;
 }
+*/ 
+
 
 /* CSS existant version 12*/
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
